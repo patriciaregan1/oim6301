@@ -49,6 +49,18 @@ def _():
     return (mo,)
 
 
+@app.cell
+def _():
+    1 + 3
+    return
+
+
+@app.cell
+def _():
+    print("hello world")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -96,7 +108,7 @@ def _(mo):
 @app.cell
 def _():
     freight_charges = [16.75, 22.25, 25.00, 20.25, 36.25]
-    freight_charges
+    print(freight_charges)
     return (freight_charges,)
 
 
@@ -118,6 +130,31 @@ def _(mo):
     *The number in brackets is an **index**, and Python counts from zero, so
     `freight_charges[0]` is the first one.*
     """)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    print(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[4]
+    return
+
+
+@app.cell
+def _(freight_charges):
+    len(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    total = sum(freight_charges)
+    total
     return
 
 
@@ -187,6 +224,61 @@ def _():
     return (orders,)
 
 
+@app.cell
+def _(freight_charges):
+    freight_charges[-1]
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[:3]
+    return
+
+
+@app.cell
+def _(orders):
+    orders[0]
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[0]
+    return
+
+
+@app.cell
+def _():
+    category = "Confections"
+
+    return (category,)
+
+
+@app.cell
+def _(category):
+    len(category)
+    return
+
+
+@app.cell
+def _(orders):
+    sum(orders)
+    return
+
+
+@app.cell
+def _(orders):
+    orders * 2
+    return
+
+
+@app.cell
+def _(freight_charges, orders):
+    orders + freight_charges
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -218,6 +310,30 @@ def _(mo):
 
 
 @app.cell
+def _(freight_charges):
+    type (freight_charges[0])
+    return
+
+
+@app.cell
+def _(orders):
+    type(orders[0])
+    return
+
+
+@app.cell
+def _():
+    type("Confections")
+    return
+
+
+@app.cell
+def _(freight_charges):
+    type(freight_charges[0] > 20)
+    return
+
+
+@app.cell
 def _(freight_charges, orders):
     [type(freight_charges[0]), type(orders[0]), type("Confections"), type(freight_charges[0] > 20)]
     return
@@ -243,6 +359,18 @@ def _(mo):
     1. `"16.75" + "22.25"`
     2. `16.75 + "22.25"`
     """)
+    return
+
+
+@app.cell
+def _():
+    "16.75" + "22.25"
+    return
+
+
+@app.cell
+def _():
+    16.75 + "22.25"
     return
 
 
@@ -277,6 +405,12 @@ def _(mo):
 
     📖 Handbook: Python §3 Expressions and operators
     """)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[0] > 20
     return
 
 
@@ -429,6 +563,12 @@ def _(mo):
 
     📖 Handbook: Python §2 Types
     """)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    print(f"There are {len(freight_charges)} charges in freight_charges.")
     return
 
 
