@@ -155,7 +155,7 @@ def _(freight_charges):
 def _(freight_charges):
     total = sum(freight_charges)
     total
-    return
+    return (total,)
 
 
 @app.cell(hide_code=True)
@@ -226,6 +226,12 @@ def _():
 
 @app.cell
 def _(freight_charges):
+    freight_charges
+    return
+
+
+@app.cell
+def _(freight_charges):
     freight_charges[-1]
     return
 
@@ -251,7 +257,6 @@ def _(freight_charges):
 @app.cell
 def _():
     category = "Confections"
-
     return (category,)
 
 
@@ -276,6 +281,18 @@ def _(orders):
 @app.cell
 def _(freight_charges, orders):
     orders + freight_charges
+    return
+
+
+@app.cell
+def _(freight_charges):
+    sorted(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    sorted(freight_charges,reverse=True)
     return
 
 
@@ -470,6 +487,12 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges, total):
+    print(f"The total freight is ${total:.2f} and the average charge is ${total/len(freight_charges):.2f}") 
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -520,6 +543,25 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    return
+
+
+@app.cell
+def _(freight_charges):
+    below_25 =[]
+    for amount in freight_charges: 
+        if amount < 25: 
+            below_25.append(amount) 
+    return
+
+
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -558,6 +600,33 @@ def _(mo):
     return
 
 
+app._unparsable_cell(
+    r"""
+    import pandsa 
+    There is no package or module named 'pandsa'
+    """,
+    name="_"
+)
+
+
+app._unparsable_cell(
+    r"""
+    open("sales.csv)") 
+    file doesnt exist in this workbook
+    """,
+    name="_"
+)
+
+
+app._unparsable_cell(
+    r"""
+    new_charges[16.75, 22.25, 
+        need to close the bracket
+    """,
+    name="_"
+)
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -567,6 +636,12 @@ def _(mo):
 
     `max(["9.50", "16.75", "22.25"])`
     """)
+    return
+
+
+@app.cell
+def _():
+    max(["9.50", "16.75", "22.25"])
     return
 
 
@@ -620,6 +695,14 @@ def _(mo):
     3. What would you change it to? More than one answer is defensible, so state the rule you chose.
     """)
     return
+
+
+app._unparsable_cell(
+    r"""
+    Python names line 3, I would name line 1. "pending" is not numerical, I would drop it from the list. the problem isn't in how line 3 is written, it failed b/c it hit something that wasn;t a number
+    """,
+    name="_"
+)
 
 
 @app.cell(hide_code=True)
