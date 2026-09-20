@@ -414,6 +414,24 @@ def _(freight_charges):
     return
 
 
+@app.cell
+def _(freight_charges):
+    type(freight_charges[-1] == max(freight_charges))
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[-1] == max(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    type(freight_charges[-1] == max(freight_charges))
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
