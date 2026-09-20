@@ -734,6 +734,19 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges, orders):
+    import matplotlib.pyplot as plt
+
+    _fig, _ax = plt.subplots(figsize=(6, 2.6))
+    _ax.bar([str(_o) for _o in orders], freight_charges)
+    _ax.set_ylabel("freight")
+    _fig
+
+
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
