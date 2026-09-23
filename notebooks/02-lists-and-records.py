@@ -20,6 +20,12 @@ def _():
     return (mo,)
 
 
+@app.cell
+def _():
+    #print(charge)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -73,6 +79,89 @@ def _(mo):
     | `sorted(charges, reverse=True)` | a **function**, and `reverse=True` is an **argument** | calling an operation somebody already wrote. The argument is what you hand it |
     | `NameError`, `IndexError`, `SyntaxError` | an **error** | Python stopping and reporting why. Read the last line first |
     """)
+    return
+
+
+@app.cell
+def _():
+    #cost = input('Enter the cost:')
+    #tax = input('Enter the tax:')
+
+    return
+
+
+@app.cell
+def _(total_cost):
+    #total_cost = cost + tax
+    print(total_cost)
+
+    return
+
+
+@app.cell
+def _():
+    #cost = "16.75"
+    #tax = "3.25"
+    #total_cost = float(cost) + float(tax)
+    #print(f'The cost is ${cost:.2f}. Total is ${total_cost:.2f}.')
+    return
+
+
+@app.cell
+def _():
+    #type(cost)
+    return
+
+
+@app.cell
+def _():
+    x = 5/2
+    print(x)
+    type(x)
+    return (x,)
+
+
+@app.cell
+def _(x):
+    int(x)
+
+    return
+
+
+@app.cell
+def _():
+    freight_charges = [16.75, 22.25, 25.00, 18.50,30.00,12.99]
+    return (freight_charges,)
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[1:4]
+    return
+
+
+@app.cell
+def _(freight_charges):
+    for charge in freight_charges: 
+        freight_tax = charge * 0.0625
+        total_charge = charge + freight_tax 
+        print(f'Total charge is ${total_charge:.2f}.')
+    
+    return
+
+
+@app.cell
+def _(freight_charges):
+    # find out all the characters below 25 (25 is included) 
+    for charge_1 in freight_charges: 
+        if charge_1 < 25: 
+            print(charge_1)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    sorted(freight_charges)
     return
 
 
@@ -225,11 +314,14 @@ def _(mo):
 @app.cell
 def _():
     score = 95
-    if score >= 60:
+
+    if score >= 60 and score < 90:
         print("Pass")
     elif score >= 90:
         print("A")
-    return (score,)
+        #elif score >= 90: 
+        # print("A") 
+    return
 
 
 @app.cell(hide_code=True)
@@ -256,7 +348,7 @@ def _(mo):
 def _():
     statuses = ["shipped", "pending", "shipped", "cancelled", "shipped"]
     statuses
-    return (statuses,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -285,7 +377,7 @@ def _():
     order_lines = ["notebook", "pen"]
     order_lines.append(["stapler", "tape"])
     len(order_lines)
-    return (order_lines,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -315,7 +407,7 @@ def _():
     print(sorted(tickers))
     print(tickers.sort())
     tickers
-    return (tickers,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -351,7 +443,7 @@ def _():
     sale_prices = prices
     sale_prices.append(4.99)
     prices
-    return (prices, sale_prices,)
+    return
 
 
 @app.cell(hide_code=True)
