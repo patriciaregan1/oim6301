@@ -86,7 +86,6 @@ def _(mo):
 def _():
     #cost = input('Enter the cost:')
     #tax = input('Enter the tax:')
-
     return
 
 
@@ -94,7 +93,6 @@ def _():
 def _(total_cost):
     #total_cost = cost + tax
     print(total_cost)
-
     return
 
 
@@ -124,7 +122,6 @@ def _():
 @app.cell
 def _(x):
     int(x)
-
     return
 
 
@@ -146,7 +143,7 @@ def _(freight_charges):
         freight_tax = charge * 0.0625
         total_charge = charge + freight_tax 
         print(f'Total charge is ${total_charge:.2f}.')
-    
+
     return
 
 
@@ -313,14 +310,19 @@ def _(mo):
 
 @app.cell
 def _():
-    score = 95
+    score = 55
 
     if score >= 60 and score < 90:
         print("Pass")
-    elif score >= 90:
+    elif score >= 95:
         print("A")
-        #elif score >= 90: 
-        # print("A") 
+    elif score < 60:
+        print("Fail")
+    return
+
+
+@app.cell(hide_code=True)
+def _():
     return
 
 
@@ -348,6 +350,26 @@ def _(mo):
 def _():
     statuses = ["shipped", "pending", "shipped", "cancelled", "shipped"]
     statuses
+    return (statuses,)
+
+
+@app.cell
+def _(statuses):
+    shipped_count = 0
+    for status in statuses:
+        if status == "shipped":
+            shipped_count = shipped_count + 1
+    shipped_count
+    return
+
+
+@app.cell
+def _(statuses):
+    not_shipped_count = 0
+    for order_status in statuses:
+        if order_status != "shipped":
+            not_shipped_count = not_shipped_count + 1
+    not_shipped_count
     return
 
 
