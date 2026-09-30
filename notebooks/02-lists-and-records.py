@@ -138,12 +138,11 @@ def _(freight_charges):
 
 
 @app.cell
-def _(freight_charges):
-    for charge in freight_charges: 
-        freight_tax = charge * 0.0625
-        total_charge = charge + freight_tax 
-        print(f'Total charge is ${total_charge:.2f}.')
-
+def _():
+     #for charge in freight_charges: 
+       # freight_tax = charge * 0.0625
+       # total_charge = charge + freight_tax 
+        #print(f'Total charge is ${total_charge:.2f}.')
     return
 
 
@@ -670,6 +669,30 @@ def _(mo):
     return
 
 
+@app.cell
+def _(first_order):
+    first_order["Freight"]
+    first_order["freight"]
+    first_order[0]
+    return
+
+
+@app.cell
+def _(first_order):
+    first_order["Freight"] 
+    first_order["OrderID"]
+    return
+
+
+@app.cell
+def _():
+    total = 0
+    for charge in [10, 20, 30]:
+        total = total + charge
+    print(total)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -717,7 +740,7 @@ def _():
     {"OrderID": 11019, "CustomerID": "RANCH", "ShipCountry": "Argentina", "ShipCity": "Buenos Aires", "OrderDate": "2018-04-13", "ShippedDate": None, "Freight": 11.25},
     {"OrderID": 11039, "CustomerID": "LINOD", "ShipCountry": "Venezuela", "ShipCity": "I. de Margarita", "OrderDate": "2018-04-21", "ShippedDate": None, "Freight": 43.00},
     ]
-    len(orders)
+    len(orders), type(orders)
     return (orders,)
 
 
