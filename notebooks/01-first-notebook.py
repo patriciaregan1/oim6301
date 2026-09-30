@@ -140,6 +140,11 @@ def _(freight_charges):
 
 
 @app.cell
+def _():
+    return
+
+
+@app.cell
 def _(freight_charges):
     freight_charges[4]
     return
@@ -156,6 +161,11 @@ def _(freight_charges):
     total = sum(freight_charges)
     total
     return (total,)
+
+
+@app.cell
+def _():
+    return
 
 
 @app.cell(hide_code=True)
@@ -219,8 +229,18 @@ def _(mo):
 
 @app.cell
 def _():
-    orders = [10248, 10249, 10250, 10251, 10252]
-    orders
+    return
+
+
+@app.cell
+def _():
+    return
+
+
+@app.cell
+def _():
+    orders = [10248, 10249, 10250, 10251, 10252] 
+    orders 
     return (orders,)
 
 
@@ -257,6 +277,7 @@ def _(freight_charges):
 @app.cell
 def _():
     category = "Confections"
+    category
     return (category,)
 
 
@@ -329,6 +350,12 @@ def _(mo):
 @app.cell
 def _(freight_charges):
     type (freight_charges[0])
+    return
+
+
+@app.cell
+def _(freight_charges):
+    print(freight_charges[0])
     return
 
 
@@ -433,7 +460,7 @@ def _(freight_charges):
 
 @app.cell
 def _(freight_charges):
-    type(freight_charges[-1] == max(freight_charges))
+    (freight_charges[-1] == max(freight_charges))
     return
 
 
@@ -510,6 +537,12 @@ def _(freight_charges):
         if charge > 20:
             over_20.append(charge)
     over_20
+    return (over_20,)
+
+
+@app.cell
+def _(over_20):
+    over_20
     return
 
 
@@ -554,11 +587,6 @@ def _(freight_charges):
     for amount in freight_charges: 
         if amount < 25: 
             below_25.append(amount) 
-    return
-
-
-@app.cell
-def _():
     return
 
 
@@ -742,7 +770,6 @@ def _(freight_charges, orders):
     _ax.bar([str(_o) for _o in orders], freight_charges)
     _ax.set_ylabel("freight")
     _fig
-
 
     return
 

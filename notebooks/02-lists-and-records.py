@@ -228,10 +228,37 @@ def _(mo):
 
 
 @app.cell
+def _(charges):
+    charges[0]
+    charges[-1]
+    charges[5]
+
+    return
+
+
+@app.cell
+def _(charges):
+    totals = 0
+    for due in charges:
+        if due < 25:
+            totals = totals + due
+    totals
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    this adds up everything under 25
+    """)
+    return
+
+
+@app.cell
 def _():
     charges = [16.75, 22.25, 25.00, 20.25, 36.25]
     charges
-    return
+    return (charges,)
 
 
 @app.cell(hide_code=True)
@@ -309,7 +336,7 @@ def _(mo):
 
 @app.cell
 def _():
-    score = 55
+    score = 95
 
     if score >= 60 and score < 90:
         print("Pass")
@@ -349,36 +376,36 @@ def _(mo):
 def _():
     statuses = ["shipped", "pending", "shipped", "cancelled", "shipped"]
     statuses
-    return (statuses,)
-
-
-@app.cell
-def _(statuses):
-    shipped_count = 0
-    for status in statuses:
-        if status == "shipped":
-            shipped_count = shipped_count + 1
-    shipped_count
-    return (shipped_count,)
-
-
-@app.cell
-def _(statuses):
-    not_shipped_count = 0
-    for order_status in statuses:
-        if order_status != "shipped":
-            not_shipped_count = not_shipped_count + 1
-    not_shipped_count
     return
 
 
 @app.cell
-def _(shipped_count, statuses):
-    percent_shipped = 0
-    for status_check in statuses:
-        if status_check == "shipped":
-            percent_shipped = shipped_count / len(statuses) * 100
-    percent_shipped
+def _():
+    #shipped_count = 0
+    #for status in statuses:
+      #  if status == "shipped":
+      #      shipped_count = shipped_count + 1
+    #shipped_count
+    return
+
+
+@app.cell
+def _():
+    #not_shipped_count = 0
+    #for order_status in statuses:
+    #    if order_status != "shipped":
+     #       not_shipped_count = not_shipped_count + 1
+    #not_shipped_count
+    return
+
+
+@app.cell
+def _():
+    #percent_shipped = 0
+    #for status_check in statuses:
+    #    if status_check == "shipped":
+    #        percent_shipped = shipped_count / len(statuses) * 100
+    #percent_shipped
     return
 
 
@@ -527,10 +554,16 @@ def _(mo):
 @app.cell
 def _():
     prices = [12.50, 8.00, 19.99]
-    sale_prices = prices[:]
+    sale_prices = prices
     sale_prices.append(4.99)
     prices
     return prices, sale_prices
+
+
+@app.cell
+def _(sale_prices):
+    sale_prices
+    return
 
 
 @app.cell(hide_code=True)
@@ -679,8 +712,8 @@ def _(first_order):
 
 @app.cell
 def _(first_order):
-    first_order["Freight"] 
-    first_order["OrderID"]
+    print(first_order["Freight"])
+    print(first_order["OrderID"])
     return
 
 
@@ -690,6 +723,21 @@ def _():
     for charge in [10, 20, 30]:
         total = total + charge
     print(total)
+    return
+
+
+@app.cell
+def _():
+
+    for cost in [10, 20, 30]: 
+        totall = 0
+        totall = totall + cost
+    print(totall)
+    return
+
+
+@app.cell
+def _():
     return
 
 
@@ -756,7 +804,8 @@ def _(mo):
 
 @app.cell
 def _(orders):
-    orders[0]["ShipCountry"]
+    print(orders[0])
+    print(orders[0]["ShipCountry"])
     return
 
 
@@ -782,6 +831,43 @@ def _(mo):
     return
 
 
+@app.cell
+def _(orders):
+    total_freight = 0
+    for order in orders:
+        total_freight = total_freight + order["Freight"]
+    total_freight
+    return
+
+
+@app.cell
+def _(orders):
+    not_shipped_amount = 0
+    for order_record in orders:
+        if order_record["ShippedDate"] is None:
+            not_shipped_amount = not_shipped_amount + 1
+    not_shipped_amount
+    return
+
+
+@app.cell
+def _(orders):
+    largest_freight = 0
+    largest_order = None
+    for order_row in orders:
+        if order_row["Freight"] > largest_freight:
+            largest_freight = order_row["Freight"]
+            largest_order = order_row
+    print(largest_order["OrderID"])
+    print(largest_freight)
+    return
+
+
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -795,6 +881,14 @@ def _(mo):
 
     Then check it: if a row were what you just wrote, **how many rows would this table
     have?** Does that match 30?
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    one row is one order
     """)
     return
 
@@ -843,7 +937,45 @@ def _():
         {"Symbol": "TSLA", "Shares": 150, "Price": 255.70},
     ]
     portfolio
+    return (portfolio,)
+
+
+@app.cell
+def _(portfolio):
+    total_cost = 0
+    for holding in portfolio:
+        total_cost = total_cost + holding["Shares"] * holding["Price"]
+    print(f"Total cost: ${total_cost:.2f}")
+    return (total_cost,)
+
+
+@app.cell
+def _(rentals):
+    total_rental_cost = 0
+    for rates in rentals:
+        total_rental_cost = total_rental_cost + rates["Days"] * rates["DailyRate"]
+    print(f"Total rental cost: ${total_rental_cost:.2f}")
     return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    for each holding, multiply the shares by the price, then add each price to get the total value of the portfolio.
+    """)
+    return
+
+
+@app.cell
+def _():
+    rentals = [
+        {"Item": "Projector", "Days": 5, "DailyRate": 45.00},
+        {"Item": "Laptop", "Days": 10, "DailyRate": 25.00},
+        {"Item": "Chair", "Days": 30, "DailyRate": 3.50},
+        {"Item": "Printer", "Days": 7, "DailyRate": 15.00},
+    ]
+    rentals
+    return (rentals,)
 
 
 @app.cell(hide_code=True)
