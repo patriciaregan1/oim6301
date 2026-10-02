@@ -157,7 +157,7 @@ def _(mo):
 
     Several questions below ask for a sentence. This cell is where they go. Click into it, write under the letter, and press `Ctrl+Enter` (Windows) or `Cmd+Enter` (macOS).
 
-    **B ·**
+    **B ·** France, Germany, Brazil, and USA are tied for the most orders, each with 4.
 
     **C ·**
 
@@ -194,6 +194,41 @@ def _():
     return (closing_prices,)
 
 
+@app.cell
+def _(closing_prices):
+    closing_prices["AAPL"]
+    return
+
+
+@app.cell
+def _(closing_prices):
+    closing_prices.get("TSLA")
+    return
+
+
+@app.cell
+def _(closing_prices):
+    over_200 = []
+    for ticker in closing_prices:
+        if closing_prices[ticker] > 200:
+            over_200.append(ticker)
+    over_200
+    return
+
+
+@app.cell
+def _(closing_prices):
+    highest_ticker = None
+    highest_closing_price = 0
+    for ticker_name in closing_prices:
+        if closing_prices[ticker_name] > highest_closing_price:
+            highest_closing_price = closing_prices[ticker_name]
+            highest_ticker = ticker_name
+    print(highest_ticker)
+    print(highest_closing_price)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -219,6 +254,20 @@ def _():
     ]
     len(ship_countries)
     return (ship_countries,)
+
+
+@app.cell
+def _(ship_countries):
+    country_counts = {}
+    for _country in ship_countries:
+        country_counts[_country] = country_counts.get(_country, 0) + 1
+    country_counts
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    return
 
 
 @app.cell(hide_code=True)
