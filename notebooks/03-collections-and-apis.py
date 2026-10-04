@@ -419,6 +419,18 @@ def _(mo):
 def _(traded_tickers):
     portfolio_tickers = {"AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "TSLA"}
     sorted(portfolio_tickers & traded_tickers), sorted(portfolio_tickers - traded_tickers)
+    return (portfolio_tickers,)
+
+
+@app.cell
+def _(portfolio_tickers, traded_tickers):
+    sorted(portfolio_tickers & traded_tickers)
+    return
+
+
+@app.cell
+def _(portfolio_tickers, traded_tickers):
+    sorted(portfolio_tickers | traded_tickers)
     return
 
 
