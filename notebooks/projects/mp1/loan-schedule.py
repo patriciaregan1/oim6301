@@ -94,7 +94,8 @@ def _(mo):
 
 @app.cell
 def _():
-    # Your inputs.
+    loan_amount = 400000
+    annual_rates = {30: 0.0703, 15: 0.0642}
     return
 
 
@@ -106,6 +107,26 @@ def _(mo):
     Add as many cells as you need. Try each step yourself before you ask your agent, and commit as you go.
     """)
     return
+
+
+app._unparsable_cell(
+    r"""
+    schedules = {} 
+    payments = {} 
+    total_interest = {} 
+    for years, rate in annual_rates.items(): 
+        monthly_rate = rate/12 
+        num_payments = years * 12 # total count of payments in this loan 
+        monthly_payment = loan_amount * monthly_rate /(1- (1 + monthly_rate) ** -number_of_payments) 
+        payments[years] = monthly_payment  
+        balance = loan_amount 
+        schedule = [] 
+        total_paid_interest = 0 
+        for payment_number in range(num_payments) #walking thru. each individual month 
+
+    """,
+    name="_"
+)
 
 
 @app.cell
