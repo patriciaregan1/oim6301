@@ -96,7 +96,7 @@ def _(mo):
 def _():
     loan_amount = 400000
     annual_rates = {30: 0.0703, 15: 0.0642}
-    return
+    return annual_rates, loan_amount
 
 
 @app.cell(hide_code=True)
@@ -109,24 +109,28 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    schedules = {} 
-    payments = {} 
-    total_interest = {} 
-    for years, rate in annual_rates.items(): 
-        monthly_rate = rate/12 
-        num_payments = years * 12 # total count of payments in this loan 
-        monthly_payment = loan_amount * monthly_rate /(1- (1 + monthly_rate) ** -number_of_payments) 
-        payments[years] = monthly_payment  
-        balance = loan_amount 
-        schedule = [] 
-        total_paid_interest = 0 
-        for payment_number in range(num_payments) #walking thru. each individual month 
-
-    """,
-    name="_"
-)
+@app.cell
+def _(annual_rates, loan_amount):
+    schedules = {}
+    payments = {}
+    total_interest = {}
+    for years, rate in annual_rates.items():
+        monthly_rate = rate / 12
+        num_payments = years * 12  # total count of payments in this loan
+        monthly_payment = loan_amount * monthly_rate / (1 - (1 + monthly_rate) ** -num_payments)
+        payments[years] = monthly_payment
+        balance = loan_amount
+        schedule = []
+        total_paid_interest = 0
+        for payment_number in range(num_payments):  # walking through each individual month
+            interest = round(balance * monthly_rate, 2)
+            principal = round(monthly_payment - interest, 2)
+            balance = round(balance - principal, 2)
+            total_paid_interest = total_paid_interest + interest
+            schedule.append(balance)
+        schedules[years] = schedule
+        total_interest[years] = total_paid_interest
+    return
 
 
 @app.cell
