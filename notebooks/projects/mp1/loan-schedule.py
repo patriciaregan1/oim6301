@@ -45,6 +45,14 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    This is a side by side calculation of two mortage options, anybody looking to sign a mortgage (such as the friend looking to buy a condo) can refer to this list to help decide which option is better for them. The decision they are making is between a 30 year or 15 year mortgage, and the comparison will help them understand the trade-offs between monthly payments and built up interest.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## 2. My Plan Before AI
 
     *Before you ask your agent anything, write how you would solve it: the steps, in order, in plain words, in five lines or more. Then answer these two questions:*
@@ -53,6 +61,21 @@ def _(mo):
     - *Which check will you use in section 6, and which two numbers should agree?*
 
     *Commit this notebook with the message `mp1: plan before AI`.*
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    First I would set up the inputs (that will need to be changed upon the lendors quote) :
+    loan_amount = 400000
+    annual_rates = {30: 0.0703, 15: 0.0642}.
+    Then, set up 2 for-loops, the outer loop that runs once per loan term and once per month.
+    I would calculate the rate per term in the outer loop:  loan_amount * r / (1 - (1 + r) ** -n) - this will run once per row.
+    Then I would create a running list for rows per month, so the code will run once per every month.
+    This will compute interest on the current balance, then subtracted by principale paid.
+    Finally, I would run a check to make sure the balance is fully paid off, and the sum of principale and loan amount equal eachother.
     """)
     return
 
