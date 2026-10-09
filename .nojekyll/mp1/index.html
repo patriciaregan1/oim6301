@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" />
+    <!-- Preload is necessary because we show these images when we disconnect from the server,
+    but at that point we cannot load these images from the server -->
+    <link rel="preload" href="./assets/gradient-yHQUC_QB.png" as="image" />
+    <link rel="preload" href="./assets/noise-60BoTA8O.png" as="image" />
+    <!-- Preload the fonts -->
+    <link rel="preload" href="./assets/Lora-VariableFont_wght-CZceb_kH.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Regular-Bam3NpBI.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/PTSans-Bold-C_DwAp7Z.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Regular-CEsLFVD9.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Medium-D5MAsWEG.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/FiraMono-Bold-C6PDArdf.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="a marimo app" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <script data-marimo="true">
+      function __resizeIframe(obj) {
+        const scrollbarHeight = 20; // Max between windows, mac, and linux
+
+        function setHeight() {
+          // Guard against race condition where iframe isn't ready
+          if (!obj.contentWindow?.document?.documentElement) {
+            return;
+          }
+          const element = obj.contentWindow.document.documentElement;
+          // If there is no vertical scrollbar, we don't need to resize the iframe
+          if (element.scrollHeight === element.clientHeight) {
+            return;
+          }
+
+          // Create a new height that includes the scrollbar height if it's visible
+          const hasHorizontalScrollbar = element.scrollWidth > element.clientWidth;
+          const newHeight = element.scrollHeight + (hasHorizontalScrollbar ? scrollbarHeight : 0);
+
+          // Only update the height if it's different from the current height
+          if (obj.style.height !== `${newHeight}px`) {
+            obj.style.height = `${newHeight}px`;
+          }
+        }
+
+        // Resize the iframe to the height of the content and bottom scrollbar height
+        setHeight();
+
+        // Resize the iframe when the content changes
+        const resizeObserver = new ResizeObserver((_entries) => {
+          setHeight();
+        });
+        // Only observe if iframe content is ready
+        if (obj.contentWindow?.document?.body) {
+          resizeObserver.observe(obj.contentWindow.document.body);
+        }
+      }
+    </script>
+    <marimo-filename hidden>notebook.py</marimo-filename>
+    <!-- TODO(Trevor): Legacy, required by VS Code plugin. Remove when plugin is updated (see marimo/server/_templates/template.py) -->
+    <marimo-version data-version="{{ version }}" hidden></marimo-version>
+    <marimo-user-config data-config="{{ user_config }}" hidden></marimo-user-config>
+    <marimo-server-token data-token="{{ server_token }}" hidden></marimo-server-token>
+    <!-- /TODO -->
+    <title>loan-schedule</title>
+    <script type="module" crossorigin src="./assets/index-DafnX1Xx.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-B0Z9INg1.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-CUdNIagt.js">
+    <link rel="modulepreload" crossorigin href="./assets/compiler-runtime-BQ9S8nyo.js">
+    <link rel="modulepreload" crossorigin href="./assets/useEvent-Dc9HkKI2.js">
+    <link rel="modulepreload" crossorigin href="./assets/react-dom-CKsE8sC1.js">
+    <link rel="modulepreload" crossorigin href="./assets/schemas-BL-NsLlF.js">
+    <link rel="modulepreload" crossorigin href="./assets/isObject-BCaOs5rp.js">
+    <link rel="modulepreload" crossorigin href="./assets/isSymbol-oX0TOjjx.js">
+    <link rel="modulepreload" crossorigin href="./assets/now-Cmx0b_zA.js">
+    <link rel="modulepreload" crossorigin href="./assets/debounce-aFmHgJZY.js">
+    <link rel="modulepreload" crossorigin href="./assets/isArrayLikeObject-DnwgSs_Z.js">
+    <link rel="modulepreload" crossorigin href="./assets/_baseMerge-CQpUq7ep.js">
+    <link rel="modulepreload" crossorigin href="./assets/objects-snlMn4yk.js">
+    <link rel="modulepreload" crossorigin href="./assets/jsx-runtime-B74pBk57.js">
+    <link rel="modulepreload" crossorigin href="./assets/useEventListener-BdZUApHd.js">
+    <link rel="modulepreload" crossorigin href="./assets/invariant-Ci2dTZ72.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-BxZgoFvi.js">
+    <link rel="modulepreload" crossorigin href="./assets/utils-B4K466FK.js">
+    <link rel="modulepreload" crossorigin href="./assets/session-DXKMv4Bs.js">
+    <link rel="modulepreload" crossorigin href="./assets/Deferred-CrTnjj37.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-DpGPGznL.js">
+    <link rel="modulepreload" crossorigin href="./assets/clsx-DB0hHKMi.js">
+    <link rel="modulepreload" crossorigin href="./assets/cn-ldLVeaqm.js">
+    <link rel="modulepreload" crossorigin href="./assets/fullscreen-BmzAqMKq.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-CyYN7zJg.js">
+    <link rel="modulepreload" crossorigin href="./assets/menu-items-BBdeXCvU.js">
+    <link rel="modulepreload" crossorigin href="./assets/use-restore-focus-B98SEiGc.js">
+    <link rel="modulepreload" crossorigin href="./assets/button-BoklZTGL.js">
+    <link rel="modulepreload" crossorigin href="./assets/createLucideIcon-rHn2EdoM.js">
+    <link rel="modulepreload" crossorigin href="./assets/check-Wea4hZ6R.js">
+    <link rel="modulepreload" crossorigin href="./assets/context-BFOBKCJB.js">
+    <link rel="modulepreload" crossorigin href="./assets/useNumberFormatter-C4-_TnkF.js">
+    <link rel="modulepreload" crossorigin href="./assets/select-BplWpfFo.js">
+    <link rel="modulepreload" crossorigin href="./assets/circle-CeQt3rdW.js">
+    <link rel="modulepreload" crossorigin href="./assets/toast-KNfsFUiB.js">
+    <link rel="modulepreload" crossorigin href="./assets/tooltip-DR2Z2N4w.js">
+    <link rel="modulepreload" crossorigin href="./assets/paths-CzfpItSz.js">
+    <link rel="modulepreload" crossorigin href="./assets/useLifecycle-DKSBdWUf.js">
+    <link rel="modulepreload" crossorigin href="./assets/toDate-BbJ1_N2T.js">
+    <link rel="modulepreload" crossorigin href="./assets/database-zap-CrkOvbyN.js">
+    <link rel="modulepreload" crossorigin href="./assets/alert-dialog-CeE3i3Qa.js">
+    <link rel="modulepreload" crossorigin href="./assets/arrays-BqUx5USx.js">
+    <link rel="modulepreload" crossorigin href="./assets/once-Haz_uxEL.js">
+    <link rel="modulepreload" crossorigin href="./assets/numbers-DsgsDslU.js">
+    <link rel="modulepreload" crossorigin href="./assets/useDebounce-DMbg9X18.js">
+    <link rel="modulepreload" crossorigin href="./assets/input-BDakodZ2.js">
+    <link rel="modulepreload" crossorigin href="./assets/use-toast-CC89xOwH.js">
+    <link rel="modulepreload" crossorigin href="./assets/requests-yTHMxhVa.js">
+    <link rel="modulepreload" crossorigin href="./assets/uuid-k9DpjH68.js">
+    <link rel="modulepreload" crossorigin href="./assets/write-secret-modal-BiG2tahJ.js">
+    <link rel="modulepreload" crossorigin href="./assets/plus-gbN72xHe.js">
+    <link rel="modulepreload" crossorigin href="./assets/trash-2-BJG-7Qob.js">
+    <link rel="modulepreload" crossorigin href="./assets/preload-helper-HclGiUj8.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BczecT6V.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BTskHGpb.js">
+    <link rel="modulepreload" crossorigin href="./assets/capabilities-Bj3s1hGN.js">
+    <link rel="modulepreload" crossorigin href="./assets/cjs-C49f7GXV.js">
+    <link rel="modulepreload" crossorigin href="./assets/createReducer-BPvK7C_R.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-Ccyblc8N.js">
+    <link rel="modulepreload" crossorigin href="./assets/marked.esm-B_3iMIUq.js">
+    <link rel="modulepreload" crossorigin href="./assets/strings-BHZPE0Mc.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-BN-7G8qZ.js">
+    <link rel="modulepreload" crossorigin href="./assets/badge-DFf033uX.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-CiUBikfn.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-MRn68vX1.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-Bviq_Dee.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DBqBVprh.js">
+    <link rel="modulepreload" crossorigin href="./assets/dist-DueXZKz9.js">
+    <link rel="modulepreload" crossorigin href="./assets/stex-CJTNBbet.js">
+    <link rel="modulepreload" crossorigin href="./assets/useTheme-DcnXlv0_.js">
+    <link rel="modulepreload" crossorigin href="./assets/useAsyncData-DucTwMkf.js">
+    <link rel="modulepreload" crossorigin href="./assets/purify.es-CYRiAeUx.js">
+    <link rel="modulepreload" crossorigin href="./assets/cells-CzugpTQu.js">
+    <link rel="modulepreload" crossorigin href="./assets/get-DjNf4SIX.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-RyCOE8jo.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-BhJktFeI.js">
+    <link rel="modulepreload" crossorigin href="./assets/copy-icon-DFhUGBjO.js">
+    <link rel="modulepreload" crossorigin href="./assets/ErrorBoundary-BeE1cdgM.js">
+    <link rel="modulepreload" crossorigin href="./assets/config-B4VJJibu.js">
+    <link rel="modulepreload" crossorigin href="./assets/chevron-right-DOPs2jx8.js">
+    <link rel="modulepreload" crossorigin href="./assets/dropdown-menu-VuyoeQOD.js">
+    <link rel="modulepreload" crossorigin href="./assets/LazyAnyLanguageCodeMirror-B_IYTCX5.js">
+    <link rel="modulepreload" crossorigin href="./assets/hat-glasses-DVgK5i5l.js">
+    <link rel="modulepreload" crossorigin href="./assets/package-BeYhVWvM.js">
+    <link rel="modulepreload" crossorigin href="./assets/errors-D9vyuMar.js">
+    <link rel="modulepreload" crossorigin href="./assets/defaultLocale-CNPGWpMu.js">
+    <link rel="modulepreload" crossorigin href="./assets/precisionRound-Bq_nmf5u.js">
+    <link rel="modulepreload" crossorigin href="./assets/defaultLocale-D5bOh7g6.js">
+    <link rel="modulepreload" crossorigin href="./assets/vega-loader.browser-CLRkNgm7.js">
+    <link rel="modulepreload" crossorigin href="./assets/tooltip-PLkI_UfK.js">
+    <link rel="modulepreload" crossorigin href="./assets/filename-fxG7K_MU.js">
+    <link rel="modulepreload" crossorigin href="./assets/micromark-factory-space-D9Dr-k4J.js">
+    <link rel="modulepreload" crossorigin href="./assets/chunk-YOKDWASO-CaoEAGJk.js">
+    <link rel="stylesheet" crossorigin href="./assets/cells-0PFKL3SH.css">
+    <link rel="stylesheet" crossorigin href="./assets/index--sT8xf-8.css">
+  <marimo-wasm hidden=""></marimo-wasm>
+    <script>
+        if (window.location.protocol === 'file:') {
+            alert('Warning: This file must be served by an HTTP server to function correctly.');
+        }
+    </script>
+    
+    <style>
+        #save-button {
+            display: none !important;
+        }
+        #filename-input {
+            display: none !important;
+        }
+    </style>
+    
+<script data-marimo="true">
+    Object.defineProperty(window, "__MARIMO_EXPORT_CONTEXT__", {
+        value: Object.freeze({
+            trusted: true,
+            notebookCode: "# /// script\n# requires-python = \"\u003E=3.12\"\n# dependencies = [\n#     \"marimo\",\n# ]\n# ///\n\"\"\"Mini Project 1.\n\"\"\"\n\nimport marimo\n\n__generated_with = \"0.25.1\"\napp = marimo.App(width=\"medium\", sql_output=\"polars\")\n\n\n@app.cell\ndef _():\n    import marimo as mo\n\n    return (mo,)\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    # Mini Project 1\n\n    Your choice of project, what each one asks for, the due date and how it is graded are on the Mini Project 1 page of the course site, linked from the calendar. This notebook is the shape to build it in. Keep the headings, and replace each line in italics with your own.\n\n    Save it in your course repository as `projects/mp1/\u003Cyour-tool\u003E.py`, named for what it does, such as `loan-schedule.py`, and open it with `uv run marimo edit`.\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 1. The Question\n\n    *Who would use this, and what decision does it help them make? Two or three sentences, in words somebody outside this course would understand.*\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    This is a side by side calculation of two mortage options, anybody looking to sign a mortgage (such as the friend looking to buy a condo) can refer to this list to help decide which option is better for them. The decision they are making is between a 30 year or 15 year mortgage, and the comparison will help them understand the trade-offs between monthly payments and built up interest.\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 2. My Plan Before AI\n\n    *Before you ask your agent anything, write how you would solve it: the steps, in order, in plain words, in five lines or more. Then answer these two questions:*\n\n    - *What does your loop carry from one step to the next, the way a running total carries its sum?*\n    - *Which check will you use in section 6, and which two numbers should agree?*\n\n    *Commit this notebook with the message `mp1: plan before AI`.*\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    First I would set up the inputs (that will need to be changed upon the lendors quote) :\n    loan_amount = 400000\n    annual_rates = {30: 0.0703, 15: 0.0642}.\n    Then, set up 2 for-loops, the outer loop that runs once per loan term and once per month.\n    I would calculate the rate per term in the outer loop:  loan_amount * r / (1 - (1 + r) ** -n) - this will run once per row.\n    Then I would create a running list for rows per month, so the code will run once per every month.\n    This will compute interest on the current balance, then subtracted by principale paid.\n    Finally, I would run a check to make sure the balance is fully paid off, and the sum of principale and loan amount equal eachother.\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 3. Inputs\n\n    Every number the project starts from goes in the cell below, and nowhere else, so that changing one input changes every result after it.\n\n    Copy in the default inputs for your project from the Mini Project 1 page. If you chose your own project, type your data in here, or ask your agent to generate it with `faker`. The required part reads no file.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _():\n    loan_amount = 400000\n    annual_rates = {30: 0.0703, 15: 0.0642}\n    return annual_rates, loan_amount\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 4. The Work\n\n    Add as many cells as you need. Try each step yourself before you ask your agent, and commit as you go.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(annual_rates, loan_amount):\n    schedules = {}\n    payments = {}\n    total_interest = {}\n    principal_paid = {}\n    for years, rate in annual_rates.items():\n        monthly_rate = rate / 12\n        num_payments = years * 12  # total count of payments in this loan\n        monthly_payment = loan_amount * monthly_rate / (1 - (1 + monthly_rate) ** -num_payments)\n        payments[years] = monthly_payment\n        balance = loan_amount\n        schedule = []\n        total_paid_interest = 0\n        total_principal_paid = 0\n        for payment_number in range(num_payments):  # walking through each individual month\n            interest = round(balance * monthly_rate, 2)\n            principal = round(monthly_payment - interest, 2)\n            balance = round(balance - principal, 2)\n            total_paid_interest = total_paid_interest + interest\n            total_principal_paid = total_principal_paid + principal\n            schedule.append(balance)\n        schedules[years] = schedule\n        total_interest[years] = total_paid_interest\n        principal_paid[years] = total_principal_paid\n    return payments, principal_paid, total_interest\n\n\n@app.cell\ndef _(annual_rates, loan_amount, payments, total_interest):\n    extra_payment = 200\n    months_with_extra = {}\n    interest_with_extra = {}\n\n    for loan_term, loan_rate in annual_rates.items():\n        monthly_rate_extra = loan_rate / 12\n        new_payment = payments[loan_term] + extra_payment\n        remaining_balance = loan_amount\n        month_count = 0\n        interest_paid_extra = 0\n        while remaining_balance \u003E 0:\n            month_interest = round(remaining_balance * monthly_rate_extra, 2)\n            month_principal = new_payment - month_interest\n            if month_principal \u003E remaining_balance:\n                month_principal = remaining_balance\n            remaining_balance = round(remaining_balance - month_principal, 2)\n            interest_paid_extra = interest_paid_extra + month_interest\n            month_count = month_count + 1\n        months_with_extra[loan_term] = month_count\n        interest_with_extra[loan_term] = interest_paid_extra\n\n    for loan_term in annual_rates:\n        original_months = loan_term * 12\n        months_saved = original_months - months_with_extra[loan_term]\n        interest_saved = total_interest[loan_term] - interest_with_extra[loan_term]\n        print(f\"{loan_term}-year loan: paying off {months_saved} months early, saving ${interest_saved:,.2f} in interest\")\n    return\n\n\n@app.cell\ndef _():\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 5. The Answer\n\n    *A table of your results in the cell below, printed with `print` and f-strings, then one sentence here that answers the question in section 1, with the number in it.*\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(annual_rates, payments, total_interest):\n    for term, term_rate in annual_rates.items():\n        print(f\"{term}-year loan: payment ${payments[term]:,.2f}/month, total interest paid ${total_interest[term]:,.2f}\")\n    return\n\n\n@app.cell\ndef _(payments, total_interest):\n    total_cost_15 = payments[15]\n    total_cost_30 = payments [30] \n    total_interest_15 = total_interest [15] \n    total_interest_30 = total_interest [30]\n    return total_cost_15, total_cost_30, total_interest_15, total_interest_30\n\n\n@app.cell\ndef _(total_cost_15, total_cost_30, total_interest_15, total_interest_30):\n    monthly_difference = total_cost_15 - total_cost_30 \n    interest_savings = total_interest_30 - total_interest_15 \n    return interest_savings, monthly_difference\n\n\n@app.cell\ndef _(interest_savings, monthly_difference):\n    f\"The 15-year loan costs ${monthly_difference:,.2f} more per month, but saves ${interest_savings:,.2f} in interest over the life of the loan.\"\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 6. How I Know These Numbers Are Right\n\n    *At least one check that reaches a result a second, independent way. Name what you compared and what came out.*\n    \"\"\")\n    return\n\n\n@app.cell\ndef _(loan_amount, principal_paid):\n    round(principal_paid[30]) == loan_amount, round(principal_paid[15]) == loan_amount\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    I checked that the sum of every month's principal payments equals the original loan amount($400000).\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    I found that both the loans were off due to rounding in the monthly payment schedule.\n    \"\"\")\n    return\n\n\n@app.cell\ndef _():\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 7. Working With the Agent\n\n    *Pick one piece of AI output you did not accept as-is. What did it give you, what did you change, and how did you know? Point to the commit or the cell.*\n\n    *If the agent got it right the first time: what did you do to verify that?*\n    \"\"\")\n    return\n\n\n@app.cell\ndef _():\n    # My code in line 8 of section 2 would not run, I had asked the AI to help me with next step, which was calculating the monthly payment for each term, the AI wrongly gave me the code monthly_payments = loan_amount + monthly_rate/ (1+ monthly_rate) ** - number_of_payments, I had not fed it my original code that labelled the variables, so the AI gave random generic names that fit the description. I realized this was wrong because I have to slowly read the code line by line and saw that number_of_payments was a new label\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    ## 8. Going Further\n\n    *Take at least one step past the main task, in any direction, and use your agent as much as you like. It does not have to work. State what you tried, what you found, and where it is in this notebook.*\n    \"\"\")\n    return\n\n\n@app.cell(hide_code=True)\ndef _(mo):\n    mo.md(r\"\"\"\n    Pay an extra 200 every month. How many months, and how much interest, does that save on each loan?\n    \"\"\")\n    return\n\n\nif __name__ == \"__main__\":\n    app.run()\n",
+        }),
+        writable: false,
+        configurable: false,
+    });
+</script>
+<marimo-code hidden="">%23%20%2F%2F%2F%20script%0A%23%20requires-python%20%3D%20%22%3E%3D3.12%22%0A%23%20dependencies%20%3D%20%5B%0A%23%20%20%20%20%20%22marimo%22%2C%0A%23%20%5D%0A%23%20%2F%2F%2F%0A%22%22%22Mini%20Project%201.%0A%22%22%22%0A%0Aimport%20marimo%0A%0A__generated_with%20%3D%20%220.25.1%22%0Aapp%20%3D%20marimo.App(width%3D%22medium%22%2C%20sql_output%3D%22polars%22)%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20import%20marimo%20as%20mo%0A%0A%20%20%20%20return%20(mo%2C)%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%20Mini%20Project%201%0A%0A%20%20%20%20Your%20choice%20of%20project%2C%20what%20each%20one%20asks%20for%2C%20the%20due%20date%20and%20how%20it%20is%20graded%20are%20on%20the%20Mini%20Project%201%20page%20of%20the%20course%20site%2C%20linked%20from%20the%20calendar.%20This%20notebook%20is%20the%20shape%20to%20build%20it%20in.%20Keep%20the%20headings%2C%20and%20replace%20each%20line%20in%20italics%20with%20your%20own.%0A%0A%20%20%20%20Save%20it%20in%20your%20course%20repository%20as%20%60projects%2Fmp1%2F%3Cyour-tool%3E.py%60%2C%20named%20for%20what%20it%20does%2C%20such%20as%20%60loan-schedule.py%60%2C%20and%20open%20it%20with%20%60uv%20run%20marimo%20edit%60.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%201.%20The%20Question%0A%0A%20%20%20%20*Who%20would%20use%20this%2C%20and%20what%20decision%20does%20it%20help%20them%20make%3F%20Two%20or%20three%20sentences%2C%20in%20words%20somebody%20outside%20this%20course%20would%20understand.*%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20This%20is%20a%20side%20by%20side%20calculation%20of%20two%20mortage%20options%2C%20anybody%20looking%20to%20sign%20a%20mortgage%20(such%20as%20the%20friend%20looking%20to%20buy%20a%20condo)%20can%20refer%20to%20this%20list%20to%20help%20decide%20which%20option%20is%20better%20for%20them.%20The%20decision%20they%20are%20making%20is%20between%20a%2030%20year%20or%2015%20year%20mortgage%2C%20and%20the%20comparison%20will%20help%20them%20understand%20the%20trade-offs%20between%20monthly%20payments%20and%20built%20up%20interest.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%202.%20My%20Plan%20Before%20AI%0A%0A%20%20%20%20*Before%20you%20ask%20your%20agent%20anything%2C%20write%20how%20you%20would%20solve%20it%3A%20the%20steps%2C%20in%20order%2C%20in%20plain%20words%2C%20in%20five%20lines%20or%20more.%20Then%20answer%20these%20two%20questions%3A*%0A%0A%20%20%20%20-%20*What%20does%20your%20loop%20carry%20from%20one%20step%20to%20the%20next%2C%20the%20way%20a%20running%20total%20carries%20its%20sum%3F*%0A%20%20%20%20-%20*Which%20check%20will%20you%20use%20in%20section%206%2C%20and%20which%20two%20numbers%20should%20agree%3F*%0A%0A%20%20%20%20*Commit%20this%20notebook%20with%20the%20message%20%60mp1%3A%20plan%20before%20AI%60.*%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20First%20I%20would%20set%20up%20the%20inputs%20(that%20will%20need%20to%20be%20changed%20upon%20the%20lendors%20quote)%20%3A%0A%20%20%20%20loan_amount%20%3D%20400000%0A%20%20%20%20annual_rates%20%3D%20%7B30%3A%200.0703%2C%2015%3A%200.0642%7D.%0A%20%20%20%20Then%2C%20set%20up%202%20for-loops%2C%20the%20outer%20loop%20that%20runs%20once%20per%20loan%20term%20and%20once%20per%20month.%0A%20%20%20%20I%20would%20calculate%20the%20rate%20per%20term%20in%20the%20outer%20loop%3A%20%20loan_amount%20*%20r%20%2F%20(1%20-%20(1%20%2B%20r)%20**%20-n)%20-%20this%20will%20run%20once%20per%20row.%0A%20%20%20%20Then%20I%20would%20create%20a%20running%20list%20for%20rows%20per%20month%2C%20so%20the%20code%20will%20run%20once%20per%20every%20month.%0A%20%20%20%20This%20will%20compute%20interest%20on%20the%20current%20balance%2C%20then%20subtracted%20by%20principale%20paid.%0A%20%20%20%20Finally%2C%20I%20would%20run%20a%20check%20to%20make%20sure%20the%20balance%20is%20fully%20paid%20off%2C%20and%20the%20sum%20of%20principale%20and%20loan%20amount%20equal%20eachother.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%203.%20Inputs%0A%0A%20%20%20%20Every%20number%20the%20project%20starts%20from%20goes%20in%20the%20cell%20below%2C%20and%20nowhere%20else%2C%20so%20that%20changing%20one%20input%20changes%20every%20result%20after%20it.%0A%0A%20%20%20%20Copy%20in%20the%20default%20inputs%20for%20your%20project%20from%20the%20Mini%20Project%201%20page.%20If%20you%20chose%20your%20own%20project%2C%20type%20your%20data%20in%20here%2C%20or%20ask%20your%20agent%20to%20generate%20it%20with%20%60faker%60.%20The%20required%20part%20reads%20no%20file.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20loan_amount%20%3D%20400000%0A%20%20%20%20annual_rates%20%3D%20%7B30%3A%200.0703%2C%2015%3A%200.0642%7D%0A%20%20%20%20return%20annual_rates%2C%20loan_amount%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%204.%20The%20Work%0A%0A%20%20%20%20Add%20as%20many%20cells%20as%20you%20need.%20Try%20each%20step%20yourself%20before%20you%20ask%20your%20agent%2C%20and%20commit%20as%20you%20go.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(annual_rates%2C%20loan_amount)%3A%0A%20%20%20%20schedules%20%3D%20%7B%7D%0A%20%20%20%20payments%20%3D%20%7B%7D%0A%20%20%20%20total_interest%20%3D%20%7B%7D%0A%20%20%20%20principal_paid%20%3D%20%7B%7D%0A%20%20%20%20for%20years%2C%20rate%20in%20annual_rates.items()%3A%0A%20%20%20%20%20%20%20%20monthly_rate%20%3D%20rate%20%2F%2012%0A%20%20%20%20%20%20%20%20num_payments%20%3D%20years%20*%2012%20%20%23%20total%20count%20of%20payments%20in%20this%20loan%0A%20%20%20%20%20%20%20%20monthly_payment%20%3D%20loan_amount%20*%20monthly_rate%20%2F%20(1%20-%20(1%20%2B%20monthly_rate)%20**%20-num_payments)%0A%20%20%20%20%20%20%20%20payments%5Byears%5D%20%3D%20monthly_payment%0A%20%20%20%20%20%20%20%20balance%20%3D%20loan_amount%0A%20%20%20%20%20%20%20%20schedule%20%3D%20%5B%5D%0A%20%20%20%20%20%20%20%20total_paid_interest%20%3D%200%0A%20%20%20%20%20%20%20%20total_principal_paid%20%3D%200%0A%20%20%20%20%20%20%20%20for%20payment_number%20in%20range(num_payments)%3A%20%20%23%20walking%20through%20each%20individual%20month%0A%20%20%20%20%20%20%20%20%20%20%20%20interest%20%3D%20round(balance%20*%20monthly_rate%2C%202)%0A%20%20%20%20%20%20%20%20%20%20%20%20principal%20%3D%20round(monthly_payment%20-%20interest%2C%202)%0A%20%20%20%20%20%20%20%20%20%20%20%20balance%20%3D%20round(balance%20-%20principal%2C%202)%0A%20%20%20%20%20%20%20%20%20%20%20%20total_paid_interest%20%3D%20total_paid_interest%20%2B%20interest%0A%20%20%20%20%20%20%20%20%20%20%20%20total_principal_paid%20%3D%20total_principal_paid%20%2B%20principal%0A%20%20%20%20%20%20%20%20%20%20%20%20schedule.append(balance)%0A%20%20%20%20%20%20%20%20schedules%5Byears%5D%20%3D%20schedule%0A%20%20%20%20%20%20%20%20total_interest%5Byears%5D%20%3D%20total_paid_interest%0A%20%20%20%20%20%20%20%20principal_paid%5Byears%5D%20%3D%20total_principal_paid%0A%20%20%20%20return%20payments%2C%20principal_paid%2C%20total_interest%0A%0A%0A%40app.cell%0Adef%20_(annual_rates%2C%20loan_amount%2C%20payments%2C%20total_interest)%3A%0A%20%20%20%20extra_payment%20%3D%20200%0A%20%20%20%20months_with_extra%20%3D%20%7B%7D%0A%20%20%20%20interest_with_extra%20%3D%20%7B%7D%0A%0A%20%20%20%20for%20loan_term%2C%20loan_rate%20in%20annual_rates.items()%3A%0A%20%20%20%20%20%20%20%20monthly_rate_extra%20%3D%20loan_rate%20%2F%2012%0A%20%20%20%20%20%20%20%20new_payment%20%3D%20payments%5Bloan_term%5D%20%2B%20extra_payment%0A%20%20%20%20%20%20%20%20remaining_balance%20%3D%20loan_amount%0A%20%20%20%20%20%20%20%20month_count%20%3D%200%0A%20%20%20%20%20%20%20%20interest_paid_extra%20%3D%200%0A%20%20%20%20%20%20%20%20while%20remaining_balance%20%3E%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20month_interest%20%3D%20round(remaining_balance%20*%20monthly_rate_extra%2C%202)%0A%20%20%20%20%20%20%20%20%20%20%20%20month_principal%20%3D%20new_payment%20-%20month_interest%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20month_principal%20%3E%20remaining_balance%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20month_principal%20%3D%20remaining_balance%0A%20%20%20%20%20%20%20%20%20%20%20%20remaining_balance%20%3D%20round(remaining_balance%20-%20month_principal%2C%202)%0A%20%20%20%20%20%20%20%20%20%20%20%20interest_paid_extra%20%3D%20interest_paid_extra%20%2B%20month_interest%0A%20%20%20%20%20%20%20%20%20%20%20%20month_count%20%3D%20month_count%20%2B%201%0A%20%20%20%20%20%20%20%20months_with_extra%5Bloan_term%5D%20%3D%20month_count%0A%20%20%20%20%20%20%20%20interest_with_extra%5Bloan_term%5D%20%3D%20interest_paid_extra%0A%0A%20%20%20%20for%20loan_term%20in%20annual_rates%3A%0A%20%20%20%20%20%20%20%20original_months%20%3D%20loan_term%20*%2012%0A%20%20%20%20%20%20%20%20months_saved%20%3D%20original_months%20-%20months_with_extra%5Bloan_term%5D%0A%20%20%20%20%20%20%20%20interest_saved%20%3D%20total_interest%5Bloan_term%5D%20-%20interest_with_extra%5Bloan_term%5D%0A%20%20%20%20%20%20%20%20print(f%22%7Bloan_term%7D-year%20loan%3A%20paying%20off%20%7Bmonths_saved%7D%20months%20early%2C%20saving%20%24%7Binterest_saved%3A%2C.2f%7D%20in%20interest%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%205.%20The%20Answer%0A%0A%20%20%20%20*A%20table%20of%20your%20results%20in%20the%20cell%20below%2C%20printed%20with%20%60print%60%20and%20f-strings%2C%20then%20one%20sentence%20here%20that%20answers%20the%20question%20in%20section%201%2C%20with%20the%20number%20in%20it.*%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(annual_rates%2C%20payments%2C%20total_interest)%3A%0A%20%20%20%20for%20term%2C%20term_rate%20in%20annual_rates.items()%3A%0A%20%20%20%20%20%20%20%20print(f%22%7Bterm%7D-year%20loan%3A%20payment%20%24%7Bpayments%5Bterm%5D%3A%2C.2f%7D%2Fmonth%2C%20total%20interest%20paid%20%24%7Btotal_interest%5Bterm%5D%3A%2C.2f%7D%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(payments%2C%20total_interest)%3A%0A%20%20%20%20total_cost_15%20%3D%20payments%5B15%5D%0A%20%20%20%20total_cost_30%20%3D%20payments%20%5B30%5D%20%0A%20%20%20%20total_interest_15%20%3D%20total_interest%20%5B15%5D%20%0A%20%20%20%20total_interest_30%20%3D%20total_interest%20%5B30%5D%0A%20%20%20%20return%20total_cost_15%2C%20total_cost_30%2C%20total_interest_15%2C%20total_interest_30%0A%0A%0A%40app.cell%0Adef%20_(total_cost_15%2C%20total_cost_30%2C%20total_interest_15%2C%20total_interest_30)%3A%0A%20%20%20%20monthly_difference%20%3D%20total_cost_15%20-%20total_cost_30%20%0A%20%20%20%20interest_savings%20%3D%20total_interest_30%20-%20total_interest_15%20%0A%20%20%20%20return%20interest_savings%2C%20monthly_difference%0A%0A%0A%40app.cell%0Adef%20_(interest_savings%2C%20monthly_difference)%3A%0A%20%20%20%20f%22The%2015-year%20loan%20costs%20%24%7Bmonthly_difference%3A%2C.2f%7D%20more%20per%20month%2C%20but%20saves%20%24%7Binterest_savings%3A%2C.2f%7D%20in%20interest%20over%20the%20life%20of%20the%20loan.%22%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%206.%20How%20I%20Know%20These%20Numbers%20Are%20Right%0A%0A%20%20%20%20*At%20least%20one%20check%20that%20reaches%20a%20result%20a%20second%2C%20independent%20way.%20Name%20what%20you%20compared%20and%20what%20came%20out.*%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_(loan_amount%2C%20principal_paid)%3A%0A%20%20%20%20round(principal_paid%5B30%5D)%20%3D%3D%20loan_amount%2C%20round(principal_paid%5B15%5D)%20%3D%3D%20loan_amount%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20I%20checked%20that%20the%20sum%20of%20every%20month's%20principal%20payments%20equals%20the%20original%20loan%20amount(%24400000).%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20I%20found%20that%20both%20the%20loans%20were%20off%20due%20to%20rounding%20in%20the%20monthly%20payment%20schedule.%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%207.%20Working%20With%20the%20Agent%0A%0A%20%20%20%20*Pick%20one%20piece%20of%20AI%20output%20you%20did%20not%20accept%20as-is.%20What%20did%20it%20give%20you%2C%20what%20did%20you%20change%2C%20and%20how%20did%20you%20know%3F%20Point%20to%20the%20commit%20or%20the%20cell.*%0A%0A%20%20%20%20*If%20the%20agent%20got%20it%20right%20the%20first%20time%3A%20what%20did%20you%20do%20to%20verify%20that%3F*%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell%0Adef%20_()%3A%0A%20%20%20%20%23%20My%20code%20in%20line%208%20of%20section%202%20would%20not%20run%2C%20I%20had%20asked%20the%20AI%20to%20help%20me%20with%20next%20step%2C%20which%20was%20calculating%20the%20monthly%20payment%20for%20each%20term%2C%20the%20AI%20wrongly%20gave%20me%20the%20code%20monthly_payments%20%3D%20loan_amount%20%2B%20monthly_rate%2F%20(1%2B%20monthly_rate)%20**%20-%20number_of_payments%2C%20I%20had%20not%20fed%20it%20my%20original%20code%20that%20labelled%20the%20variables%2C%20so%20the%20AI%20gave%20random%20generic%20names%20that%20fit%20the%20description.%20I%20realized%20this%20was%20wrong%20because%20I%20have%20to%20slowly%20read%20the%20code%20line%20by%20line%20and%20saw%20that%20number_of_payments%20was%20a%20new%20label%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20%23%23%208.%20Going%20Further%0A%0A%20%20%20%20*Take%20at%20least%20one%20step%20past%20the%20main%20task%2C%20in%20any%20direction%2C%20and%20use%20your%20agent%20as%20much%20as%20you%20like.%20It%20does%20not%20have%20to%20work.%20State%20what%20you%20tried%2C%20what%20you%20found%2C%20and%20where%20it%20is%20in%20this%20notebook.*%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0A%40app.cell(hide_code%3DTrue)%0Adef%20_(mo)%3A%0A%20%20%20%20mo.md(r%22%22%22%0A%20%20%20%20Pay%20an%20extra%20200%20every%20month.%20How%20many%20months%2C%20and%20how%20much%20interest%2C%20does%20that%20save%20on%20each%20loan%3F%0A%20%20%20%20%22%22%22)%0A%20%20%20%20return%0A%0A%0Aif%20__name__%20%3D%3D%20%22__main__%22%3A%0A%20%20%20%20app.run()%0A</marimo-code></head>
+  <body>
+    <div id="root"></div>
+    <script data-marimo="true">
+      Object.defineProperty(window, "__MARIMO_MOUNT_CONFIG__", {
+        value: Object.freeze({
+            "filename": "notebook.py",
+            "cwd": "",
+            "lspWorkspace": null,
+            "mode": "read",
+            "version": "0.25.1",
+            "serverToken": "unused",
+            "config": {"ai": {"allow_provider_config": true, "custom_providers": {}, "enabled": true, "models": {"custom_models": [], "displayed_models": []}}, "completion": {"activate_on_typing": true, "auto_close_pairs": true, "copilot": false, "signature_hint_on_typing": false}, "diagnostics": {"sql_linter": true}, "display": {"cell_output": "below", "code_editor_font_size": 14, "code_lens": true, "dataframes": "rich", "default_table_max_columns": 50, "default_table_page_size": 10, "default_width": "medium", "reference_highlighting": true, "theme": "light"}, "formatting": {"line_length": 79}, "keymap": {"overrides": {}, "preset": "default"}, "language_servers": {"pylsp": {"enable_flake8": false, "enable_mypy": true, "enable_pydocstyle": false, "enable_pyflakes": false, "enable_pylint": false, "enable_ruff": true, "enabled": false}}, "mcp": {"mcpServers": {}, "presets": []}, "package_management": {"manager": "uv"}, "runtime": {"auto_instantiate": false, "auto_reload": "off", "default_csv_encoding": "utf-8", "default_sql_output": "auto", "on_cell_change": "autorun", "output_max_bytes": 8000000, "reactive_tests": true, "show_tracebacks": false, "std_stream_max_bytes": 1000000, "watcher_on_save": "lazy"}, "save": {"autosave": "off", "autosave_delay": 1000, "format_on_save": false}, "server": {"browser": "default", "follow_symlink": false}, "snippets": {"custom_paths": [], "include_default_snippets": true}},
+            "configOverrides": {},
+            "appConfig": {"sql_output": "polars", "width": "medium"},
+            "layout": null,
+            "view": {"showAppCode": false},
+            "notebook": null,
+            "session": null,
+            "runtimeConfig": null
+        }),
+        writable: false,
+        configurable: false,
+      });
+    </script>
+  </body>
+</html>
