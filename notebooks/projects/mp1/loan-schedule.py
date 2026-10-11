@@ -263,8 +263,10 @@ def _(mo):
 
 
 @app.cell
-def _():
-    # My code in line 8 of section 2 would not run, I had asked the AI to help me with next step, which was calculating the monthly payment for each term, the AI wrongly gave me the code monthly_payments = loan_amount + monthly_rate/ (1+ monthly_rate) ** - number_of_payments, I had not fed it my original code that labelled the variables, so the AI gave random generic names that fit the description. I realized this was wrong because I have to slowly read the code line by line and saw that number_of_payments was a new label
+def _(mo):
+    mo.md(r"""
+    My code in line 8 of section 2 would not run, I had asked the AI to help me with next step, which was calculating the monthly payment for each term, the AI wrongly gave me the code monthly_payments = loan_amount + monthly_rate/ (1+ monthly_rate) ** - number_of_payments, I had not fed it my original code that labelled the variables, so the AI gave random generic names that fit the description. I realized this was wrong because I have to slowly read the code line by line and saw that number_of_payments was a new label
+    """)
     return
 
 
