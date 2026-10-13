@@ -260,7 +260,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    I found that both the loans were off due to rounding in the monthly payment schedule.
+    The code returns True because the last month was coded to make the payment whatever makes the balance 0
     """)
     return
 
