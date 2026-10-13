@@ -126,15 +126,27 @@ def _(annual_rates, loan_amount):
         total_principal_paid = 0
         for payment_number in range(num_payments):  # walking through each individual month
             interest = round(balance * monthly_rate, 2)
-            principal = round(monthly_payment - interest, 2)
+            if payment_number == num_payments - 1:  # last payment: pay off whatever balance remains
+                principal = balance
+                actual_payment = round(principal + interest, 2)
+            else:
+                principal = round(monthly_payment - interest, 2)
+                actual_payment = monthly_payment
             balance = round(balance - principal, 2)
             total_paid_interest = total_paid_interest + interest
             total_principal_paid = total_principal_paid + principal
-            schedule.append(balance)
+            row = {
+                "month": payment_number + 1,
+                "payment": actual_payment,
+                "interest": interest,
+                "principal": principal,
+                "balance": balance,
+            }
+            schedule.append(row)
         schedules[years] = schedule
         total_interest[years] = total_paid_interest
         principal_paid[years] = total_principal_paid
-    return payments, principal_paid, total_interest
+    return payments, principal_paid, schedules, total_interest
 
 
 @app.cell
@@ -191,11 +203,20 @@ def _(annual_rates, payments, total_interest):
 
 
 @app.cell
+def _(annual_rates, schedules):
+    for loan_years in annual_rates:
+        print(f"--- {loan_years}-year loan schedule ---")
+        for month_row in schedules[loan_years]:
+            print(f"Month {month_row['month']}: payment ${month_row['payment']:,.2f}, interest ${month_row['interest']:,.2f}, principal ${month_row['principal']:,.2f}, balance ${month_row['balance']:,.2f}")
+    return
+
+
+@app.cell
 def _(payments, total_interest):
     total_cost_15 = payments[15]
-    total_cost_30 = payments [30] 
-    total_interest_15 = total_interest [15] 
-    total_interest_30 = total_interest [30]
+    total_cost_30 = payments[30]
+    total_interest_15 = total_interest[15]
+    total_interest_30 = total_interest[30]
     return total_cost_15, total_cost_30, total_interest_15, total_interest_30
 
 
@@ -203,7 +224,6 @@ def _(payments, total_interest):
 def _(total_cost_15, total_cost_30, total_interest_15, total_interest_30):
     monthly_difference = total_cost_15 - total_cost_30 
     interest_savings = total_interest_30 - total_interest_15 
-
     return interest_savings, monthly_difference
 
 
