@@ -15,4 +15,10 @@ people = [
 ] 
 
 for person in people: 
-    print(person) 
+    print(person)  
+    weight = person["weight"] 
+    height = person ["height"] 
+    bmi_value = bmi.compute.bmi(weight,height) 
+    category = bmi.classify.bmi(bmi_value) 
+    print(f"person['name']")
+
