@@ -244,7 +244,10 @@ def _(mo):
 
 
 @app.cell
-def _(loan_amount, principal_paid):
+def _(annual_rates, loan_amount, principal_paid):
+    for check_term in annual_rates:
+        print(f"{check_term}-year loan: principal paid ${principal_paid[check_term]:,.2f}, loan amount ${loan_amount:,.2f}")
+
     round(principal_paid[30]) == loan_amount, round(principal_paid[15]) == loan_amount
     return
 
