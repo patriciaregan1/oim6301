@@ -480,6 +480,17 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    1. A list. Its many of the same things, like a shopping list that is changeable
+    2. A set. It keeps each value only once, like a collection of unique items with no duplicates. Its not asking for an order or how many times something was ordered.
+    3. A dictionary. Its asking to be looked up by name not position, like a phone book where you look up someones name, not their position in the phone book
+    4. A tuple. Its a fixed collection that cannot change, like (x,y) coordinates that pin point a location and cannot be changed.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## ✏️ D · The portfolio again
 
     Notebook 2 held the six holdings as a list of dictionaries. Here they are as a list of tuples, one holding per tuple.
@@ -495,6 +506,14 @@ def _(mo):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    For this question, I would rather work with a dictionary because it is changeable. Say the price of Apple or Microsft stock went up or down, I would want to be able to update the price. A tuple is not changeable so this would not allow me to update stock prices once they are set.
+    """)
+    return
+
+
 @app.cell
 def _():
     holdings = [
@@ -506,6 +525,20 @@ def _():
         ("TSLA", 150, 255.70),
     ]
     holdings
+    return (holdings,)
+
+
+@app.cell
+def _(holdings):
+    total_cost = 0
+    for _symbol, _shares, _price in holdings:
+        total_cost = total_cost + _shares * _price
+    print(f"Total cost of portfolio: ${total_cost:,.2f}")
+    return
+
+
+@app.cell
+def _():
     return
 
 
@@ -709,12 +742,12 @@ def _(babson_weather):
     return
 
 
-app._unparsable_cell(
-    r"""
-    print(f"the wind speed at Babson is {babson_weather["current]["wind_speed_10m"]["current_units"]}
-    """,
-    name="_"
-)
+@app.cell
+def _(babson_weather):
+    wind_speed_value = babson_weather["current"]["wind_speed_10m"]
+    wind_speed_unit = babson_weather["current_units"]["wind_speed_10m"]
+    print(f"The wind speed at Babson is {wind_speed_value} {wind_speed_unit}.")
+    return
 
 
 @app.cell(hide_code=True)
@@ -740,6 +773,32 @@ def _(wellesley_reply):
     wellesley_places = wellesley_reply.json()
     wellesley_place = wellesley_places["results"][0]
     wellesley_place["latitude"], wellesley_place["longitude"], wellesley_place["admin1"]
+    return
+
+
+@app.cell
+def _(requests):
+    babson_park_reply = requests.get(
+        "https://geocoding-api.open-meteo.com/v1/search?name=Babson Park&count=1",
+        timeout=10,
+    )
+    babson_park_reply.status_code
+    return (babson_park_reply,)
+
+
+@app.cell
+def _(babson_park_reply):
+    babson_park_places = babson_park_reply.json()
+    babson_park_place = babson_park_places["results"][0]
+    babson_park_place["latitude"], babson_park_place["longitude"], babson_park_place["admin1"]
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The first result for "Babson Park" is in Florida, not Massachusetts, so the code that always takes [0] would have silently picked the wrong place with no error. A correct-looking reply can still hold the wrong answer if theres more than one match for an ambigious name.
+    """)
     return
 
 
