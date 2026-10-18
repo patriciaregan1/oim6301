@@ -202,12 +202,86 @@ def _(mo):
     return
 
 
+@app.function
+def count_shares(portfolio):
+    '''
+    Count the total number of shares in a portfolio.
+
+    portfolio is a list of tuples (symbol, shares, price).
+    Returns the total shares.
+    '''
+    total_shares = 0
+    for symbol, shares, price in portfolio:
+        total_shares = total_shares + shares
+    return total_shares
+
+
+@app.cell
+def _(holdings, retirement_holdings):
+    count_shares(holdings), count_shares(retirement_holdings)
+    return
+
+
+@app.function
+def find_largest(portfolio):
+    '''
+    Find the ticker and cost of the holding that cost the most.
+
+    portfolio is a list of tuples (symbol, shares, price).
+    Returns a tuple (ticker, cost).
+    '''
+    largest_ticker = None
+    largest_cost = 0
+    for symbol, shares, price in portfolio:
+        cost = shares * price
+        if cost > largest_cost:
+            largest_cost = cost
+            largest_ticker = symbol
+    return largest_ticker, largest_cost
+
+
+@app.cell
+def _(holdings, retirement_holdings):
+    find_largest(holdings), find_largest(retirement_holdings)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## ✏️ B · Without `return`
 
     Copy `count_shares` into a new cell under a new name, and put `print(...)` where the `return` was. Call it and keep the result in a name. In a markdown cell under it, answer: what does that name hold, and what could the next cell do with it?
+    """)
+    return
+
+
+@app.function
+def print_shares(portfolio):
+    '''
+    Print the total number of shares in a portfolio.
+
+    portfolio is a list of tuples (symbol, shares, price).
+    Prints the total shares, instead of returning it.
+    '''
+    total_shares = 0
+    for symbol, shares, price in portfolio:
+        total_shares = total_shares + shares
+    print(total_shares)
+
+
+@app.cell
+def _(holdings):
+    shares_result = print_shares(holdings)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    `shares_result` holds `None`, not `600`. `print(...)` only displays a value on the screen; it does not hand anything back to whoever called the function. Since `print_shares` ends with `print(total_shares)` and no `return`, the function implicitly returns `None`, and that's what gets stored in `shares_result`.
+
+    The next cell could not use `shares_result` to do any further math with it — there's no number there to add, compare, or pass to another function. All it could do is confirm that `shares_result is None`.
     """)
     return
 
@@ -344,6 +418,24 @@ def _(mo):
 
     **Going further.** Try `get_temperature("Babson Park")`. Add a second parameter, `state`, so the function uses the first place in that state.
     """)
+    return
+
+
+@app.cell
+def _(requests):
+    wellesley_reply = requests.get(
+        "https://geocoding-api.open-meteo.com/v1/search?name=Wellesley&count=1",
+        timeout=10,
+    )
+    wellesley_reply.status_code
+    return (wellesley_reply,)
+
+
+@app.cell
+def _(wellesley_reply):
+    wellesley_places = wellesley_reply.json()
+    wellesley_place = wellesley_places["results"][0]
+    wellesley_place["latitude"], wellesley_place["longitude"], wellesley_place["admin1"]
     return
 
 
