@@ -19,7 +19,7 @@ def _():
     import altair as alt
     import polars as pl
 
-    return (csv,)
+    return csv, pl
 
 
 @app.cell(hide_code=True)
@@ -214,6 +214,21 @@ def _(csv, mo, qualifying_towns):
         _writer.writerows(qualifying_towns)
 
     ma_taxes_csv.name
+    return (ma_taxes_csv,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Answer
+    """)
+    return
+
+
+@app.cell
+def _(ma_taxes_csv, pl):
+    town_table = pl.read_csv(ma_taxes_csv)
+    town_table
     return
 
 
