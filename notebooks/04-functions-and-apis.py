@@ -532,6 +532,11 @@ def _(get_page):
     return
 
 
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -594,6 +599,18 @@ def _(mo):
 
     **Going further.** Post something more useful than one town's bill: choose a question somebody would ask, answer it from live data, and post the answer, in 140 characters or fewer.
     """)
+    return
+
+
+@app.cell
+def _(requests):
+    board_reply = requests.post(
+        "https://oim.zhili.dev/message",
+        headers={"x-token": "patriciaregan1"},
+        json={"message": f"Hi from Tricia"},
+        timeout=10,
+    )
+    board_reply.status_code, board_reply.json()
     return
 
 
