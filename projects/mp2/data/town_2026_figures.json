@@ -1,0 +1,326 @@
+[
+  {
+    "name": "Acton",
+    "average_single_family_value_dollars": 937779,
+    "residential_rate_per_thousand": 16.23,
+    "average_single_family_bill_dollars": 15220
+  },
+  {
+    "name": "Arlington",
+    "average_single_family_value_dollars": 1119722,
+    "residential_rate_per_thousand": 10.67,
+    "average_single_family_bill_dollars": 11947
+  },
+  {
+    "name": "Ashby",
+    "average_single_family_value_dollars": 394983,
+    "residential_rate_per_thousand": 15.76,
+    "average_single_family_bill_dollars": 6225
+  },
+  {
+    "name": "Ashland",
+    "average_single_family_value_dollars": 737364,
+    "residential_rate_per_thousand": 12.71,
+    "average_single_family_bill_dollars": 9372
+  },
+  {
+    "name": "Ayer",
+    "average_single_family_value_dollars": 571644,
+    "residential_rate_per_thousand": 11.59,
+    "average_single_family_bill_dollars": 6625
+  },
+  {
+    "name": "Bedford",
+    "average_single_family_value_dollars": 1039668,
+    "residential_rate_per_thousand": 12.49,
+    "average_single_family_bill_dollars": 12985
+  },
+  {
+    "name": "Belmont",
+    "average_single_family_value_dollars": 1701064,
+    "residential_rate_per_thousand": 11.51,
+    "average_single_family_bill_dollars": 19579
+  },
+  {
+    "name": "Billerica",
+    "average_single_family_value_dollars": 644586,
+    "residential_rate_per_thousand": 11.61,
+    "average_single_family_bill_dollars": 7484
+  },
+  {
+    "name": "Boxborough",
+    "average_single_family_value_dollars": 933829,
+    "residential_rate_per_thousand": 15.39,
+    "average_single_family_bill_dollars": 14372
+  },
+  {
+    "name": "Burlington",
+    "average_single_family_value_dollars": 820280,
+    "residential_rate_per_thousand": 8.69,
+    "average_single_family_bill_dollars": 7128
+  },
+  {
+    "name": "Cambridge",
+    "average_single_family_value_dollars": 2050959,
+    "residential_rate_per_thousand": 6.67,
+    "average_single_family_bill_dollars": 13680
+  },
+  {
+    "name": "Carlisle",
+    "average_single_family_value_dollars": 1355604,
+    "residential_rate_per_thousand": 12.82,
+    "average_single_family_bill_dollars": 17379
+  },
+  {
+    "name": "Chelmsford",
+    "average_single_family_value_dollars": 694695,
+    "residential_rate_per_thousand": 13.27,
+    "average_single_family_bill_dollars": 9219
+  },
+  {
+    "name": "Concord",
+    "average_single_family_value_dollars": 1572184,
+    "residential_rate_per_thousand": 13.05,
+    "average_single_family_bill_dollars": 20517
+  },
+  {
+    "name": "Dracut",
+    "average_single_family_value_dollars": 593296,
+    "residential_rate_per_thousand": 9.67,
+    "average_single_family_bill_dollars": 5737
+  },
+  {
+    "name": "Dunstable",
+    "average_single_family_value_dollars": 745497,
+    "residential_rate_per_thousand": 13.39,
+    "average_single_family_bill_dollars": 9982
+  },
+  {
+    "name": "Everett",
+    "average_single_family_value_dollars": 466504,
+    "residential_rate_per_thousand": 12.62,
+    "average_single_family_bill_dollars": 5887
+  },
+  {
+    "name": "Framingham",
+    "average_single_family_value_dollars": 681423,
+    "residential_rate_per_thousand": 11.83,
+    "average_single_family_bill_dollars": 8061
+  },
+  {
+    "name": "Groton",
+    "average_single_family_value_dollars": 761388,
+    "residential_rate_per_thousand": 14.78,
+    "average_single_family_bill_dollars": 11253
+  },
+  {
+    "name": "Holliston",
+    "average_single_family_value_dollars": 739382,
+    "residential_rate_per_thousand": 14.29,
+    "average_single_family_bill_dollars": 10566
+  },
+  {
+    "name": "Hopkinton",
+    "average_single_family_value_dollars": 994431,
+    "residential_rate_per_thousand": 14.1,
+    "average_single_family_bill_dollars": 14021
+  },
+  {
+    "name": "Hudson",
+    "average_single_family_value_dollars": 609924,
+    "residential_rate_per_thousand": 14.14,
+    "average_single_family_bill_dollars": 8624
+  },
+  {
+    "name": "Lexington",
+    "average_single_family_value_dollars": 1656734,
+    "residential_rate_per_thousand": 12.31,
+    "average_single_family_bill_dollars": 20394
+  },
+  {
+    "name": "Lincoln",
+    "average_single_family_value_dollars": 1684669,
+    "residential_rate_per_thousand": 12.31,
+    "average_single_family_bill_dollars": 20738
+  },
+  {
+    "name": "Littleton",
+    "average_single_family_value_dollars": 770356,
+    "residential_rate_per_thousand": 14.02,
+    "average_single_family_bill_dollars": 10800
+  },
+  {
+    "name": "Lowell",
+    "average_single_family_value_dollars": 514854,
+    "residential_rate_per_thousand": 11.35,
+    "average_single_family_bill_dollars": 5844
+  },
+  {
+    "name": "Malden",
+    "average_single_family_value_dollars": 434420,
+    "residential_rate_per_thousand": 11.4,
+    "average_single_family_bill_dollars": 4952
+  },
+  {
+    "name": "Marlborough",
+    "average_single_family_value_dollars": 611100,
+    "residential_rate_per_thousand": 10.54,
+    "average_single_family_bill_dollars": 6441
+  },
+  {
+    "name": "Maynard",
+    "average_single_family_value_dollars": 606545,
+    "residential_rate_per_thousand": 16.62,
+    "average_single_family_bill_dollars": 10081
+  },
+  {
+    "name": "Medford",
+    "average_single_family_value_dollars": 860609,
+    "residential_rate_per_thousand": 8.63,
+    "average_single_family_bill_dollars": 7427
+  },
+  {
+    "name": "Melrose",
+    "average_single_family_value_dollars": 853264,
+    "residential_rate_per_thousand": 11.47,
+    "average_single_family_bill_dollars": 9787
+  },
+  {
+    "name": "Natick",
+    "average_single_family_value_dollars": 937795,
+    "residential_rate_per_thousand": 12.17,
+    "average_single_family_bill_dollars": 11413
+  },
+  {
+    "name": "Newton",
+    "average_single_family_value_dollars": 1762337,
+    "residential_rate_per_thousand": 9.69,
+    "average_single_family_bill_dollars": 17077
+  },
+  {
+    "name": "North Reading",
+    "average_single_family_value_dollars": 882903,
+    "residential_rate_per_thousand": 13.02,
+    "average_single_family_bill_dollars": 11495
+  },
+  {
+    "name": "Pepperell",
+    "average_single_family_value_dollars": 549948,
+    "residential_rate_per_thousand": 13.78,
+    "average_single_family_bill_dollars": 7578
+  },
+  {
+    "name": "Reading",
+    "average_single_family_value_dollars": 939783,
+    "residential_rate_per_thousand": 10.96,
+    "average_single_family_bill_dollars": 10300
+  },
+  {
+    "name": "Sherborn",
+    "average_single_family_value_dollars": 1278285,
+    "residential_rate_per_thousand": 15.66,
+    "average_single_family_bill_dollars": 20018
+  },
+  {
+    "name": "Shirley",
+    "average_single_family_value_dollars": 523807,
+    "residential_rate_per_thousand": 12.39,
+    "average_single_family_bill_dollars": 6490
+  },
+  {
+    "name": "Somerville",
+    "average_single_family_value_dollars": 853939,
+    "residential_rate_per_thousand": 10.98,
+    "average_single_family_bill_dollars": 9376
+  },
+  {
+    "name": "Stoneham",
+    "average_single_family_value_dollars": 801126,
+    "residential_rate_per_thousand": 10.06,
+    "average_single_family_bill_dollars": 8059
+  },
+  {
+    "name": "Stow",
+    "average_single_family_value_dollars": 789754,
+    "residential_rate_per_thousand": 17.87,
+    "average_single_family_bill_dollars": 14113
+  },
+  {
+    "name": "Sudbury",
+    "average_single_family_value_dollars": 1165018,
+    "residential_rate_per_thousand": 14.27,
+    "average_single_family_bill_dollars": 16625
+  },
+  {
+    "name": "Tewksbury",
+    "average_single_family_value_dollars": 685343,
+    "residential_rate_per_thousand": 12.56,
+    "average_single_family_bill_dollars": 8608
+  },
+  {
+    "name": "Townsend",
+    "average_single_family_value_dollars": 469723,
+    "residential_rate_per_thousand": 13.75,
+    "average_single_family_bill_dollars": 6459
+  },
+  {
+    "name": "Tyngsborough",
+    "average_single_family_value_dollars": 642029,
+    "residential_rate_per_thousand": 12.99,
+    "average_single_family_bill_dollars": 8340
+  },
+  {
+    "name": "Wakefield",
+    "average_single_family_value_dollars": 820088,
+    "residential_rate_per_thousand": 11.74,
+    "average_single_family_bill_dollars": 9628
+  },
+  {
+    "name": "Waltham",
+    "average_single_family_value_dollars": 502825,
+    "residential_rate_per_thousand": 10.32,
+    "average_single_family_bill_dollars": 5189
+  },
+  {
+    "name": "Watertown",
+    "average_single_family_value_dollars": 663449,
+    "residential_rate_per_thousand": 12.2,
+    "average_single_family_bill_dollars": 8094
+  },
+  {
+    "name": "Wayland",
+    "average_single_family_value_dollars": 1231217,
+    "residential_rate_per_thousand": 14.83,
+    "average_single_family_bill_dollars": 18259
+  },
+  {
+    "name": "Westford",
+    "average_single_family_value_dollars": 852122,
+    "residential_rate_per_thousand": 13.11,
+    "average_single_family_bill_dollars": 11171
+  },
+  {
+    "name": "Weston",
+    "average_single_family_value_dollars": 2418446,
+    "residential_rate_per_thousand": 10.88,
+    "average_single_family_bill_dollars": 26313
+  },
+  {
+    "name": "Wilmington",
+    "average_single_family_value_dollars": 759032,
+    "residential_rate_per_thousand": 11.41,
+    "average_single_family_bill_dollars": 8661
+  },
+  {
+    "name": "Winchester",
+    "average_single_family_value_dollars": 1649138,
+    "residential_rate_per_thousand": 11.08,
+    "average_single_family_bill_dollars": 18272
+  },
+  {
+    "name": "Woburn",
+    "average_single_family_value_dollars": 738200,
+    "residential_rate_per_thousand": 9.15,
+    "average_single_family_bill_dollars": 6755
+  }
+]

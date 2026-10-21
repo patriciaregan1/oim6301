@@ -110,7 +110,7 @@ def _(get_towns, ma_counties):
         for _town in get_towns(_county["name"]):
             ma_towns.append(_town)
     len(ma_towns) 
-    #ma_towns
+    ma_towns
     return (ma_towns,)
 
 
@@ -210,13 +210,13 @@ def _(towns_from_file):
                    county_counts[county] += 1  
          else: 
                 county_counts[county] = 1  
-         
+     
     county_counts 
  
-            
-    
+        
 
-    
+
+
     return
 
 
@@ -225,9 +225,7 @@ app._unparsable_cell(
     def find_largest(towns_from_file): 
         largest_town= None 
             largest_population = 0
-        for town in towns_from_file: 
-        
-        
+        for town in towns_from_file:
     """,
     name="_"
 )
