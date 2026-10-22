@@ -97,11 +97,22 @@ def _(mo):
 
 
 @app.cell
-def _():
-    county = "Middlesex"
-    budget_dollars = 700000
-    tax_limit_dollars = 8000
-    fiscal_year = 2026
+def _(mo):
+    county_input = mo.ui.text(value="Middlesex", label="County")
+    budget_input = mo.ui.number(value=700000, label="Budget maximum ($)")
+    tax_input = mo.ui.number(value=8000, label="Tax maximum ($)")
+    fiscal_year_input = mo.ui.number(value=2026, label="Fiscal year")
+
+    mo.vstack([county_input, budget_input, tax_input, fiscal_year_input])
+    return budget_input, county_input, fiscal_year_input, tax_input
+
+
+@app.cell
+def _(budget_input, county_input, fiscal_year_input, tax_input):
+    county = county_input.value
+    budget_dollars = budget_input.value
+    tax_limit_dollars = tax_input.value
+    fiscal_year = fiscal_year_input.value
     return budget_dollars, county, fiscal_year, tax_limit_dollars
 
 
@@ -127,13 +138,6 @@ def _(requests):
 
 
     return (get_towns,)
-
-
-@app.cell
-def _(county, get_towns):
-    middlesex_towns, middlesex_total = get_towns(county)
-    len(middlesex_towns) == middlesex_total
-    return (middlesex_towns,)
 
 
 @app.cell
@@ -193,7 +197,7 @@ def _(budget_dollars, tax_limit_dollars, town_2026_figures):
 
     qualifying_towns.sort(key=lambda r: r["average_single_family_bill_dollars"])
 
-    #qualifying_towns
+    qualifying_towns
     return (qualifying_towns,)
 
 
@@ -211,7 +215,8 @@ def _(csv, mo, qualifying_towns):
     with open(ma_taxes_csv, "w", newline="", encoding="utf-8") as _file:
         _writer = csv.DictWriter(_file, fieldnames=csv_columns)
         _writer.writeheader()
-        _writer.writerows(qualifying_towns)
+        for _record in qualifying_towns:
+            _writer.writerow(_record)
 
     ma_taxes_csv.name
     return (ma_taxes_csv,)
@@ -229,6 +234,190 @@ def _(mo):
 def _(ma_taxes_csv, pl):
     town_table = pl.read_csv(ma_taxes_csv)
     town_table
+    return
+
+
+@app.cell
+def _(
+    budget_dollars,
+    county,
+    fiscal_year,
+    qualifying_towns,
+    tax_limit_dollars,
+):
+    print(f"{'Town':<15}{'Value ($)':>12}{'Rate':>8}{'Bill ($)':>10}")
+    for _record in qualifying_towns:
+        print(f"{_record['name']:<15}{_record['average_single_family_value_dollars']:>12,}{_record['residential_rate_per_thousand']:>8}{_record['average_single_family_bill_dollars']:>10,}")
+
+    if len(qualifying_towns) > 0:
+        cheapest = qualifying_towns[0]
+        print(f"\nIn {county} county for fiscal year {fiscal_year}, {len(qualifying_towns)} towns have an average home value under ${budget_dollars:,} and an average yearly tax bill under ${tax_limit_dollars:,}, with {cheapest['name']} being the cheapest at ${cheapest['average_single_family_bill_dollars']:,} per year.")
+    else:
+        print(f"\nNo towns in {county} county meet a budget of ${budget_dollars:,} and a tax limit of ${tax_limit_dollars:,} for fiscal year {fiscal_year}.")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    6. How I Know These Numbers Are Right
+    """)
+    return
+
+
+@app.cell
+def _(county, get_towns):
+    middlesex_towns, middlesex_total = get_towns(county)
+    len(middlesex_towns) == middlesex_total
+    return (middlesex_towns,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    This check makes sure the number of town records I actually collected matches the total the API says exists, this confirms all towns are accounted for and none were lost due to pagination
+    """)
+    return
+
+
+app._unparsable_cell(
+    r"""
+    7. Working With the Agent
+    """,
+    name="_"
+)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    writerows(qualifying_towns) was a one-line call that wrote the whole list at once. I replaced it with a for loop over qualifying_towns that calls writerow on each _record in turn , same result, one row written per pass through the loop.This wasn't exactly wrong for the agent to compute, but the task asks for for-loops instead of one-line calls.
+    """)
+    return
+
+
+app._unparsable_cell(
+    r"""
+    8. Reading it Back 
+    """,
+    name="_"
+)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    qualifying_towns = []
+
+    for _record in town_2026_figures:
+        if _record["average_single_family_value_dollars"] <= budget_dollars and _record["average_single_family_bill_dollars"] <= tax_limit_dollars:
+            qualifying_towns.append(_record)
+
+    qualifying_towns.sort(key=lambda r: r["average_single_family_bill_dollars"])
+
+    qualifying_towns
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    qualifying_towns = [] goes in, nothing comes out, this is a new empty list called qualifying_towns
+
+    for_record in
+    town_2026_figures:
+
+    Goes in: the list town_2026_figures
+    Comes out: nothing yet, each pass through the loop, and _record takes one record from that list
+
+    if _record["average_single_family_value_dollars"] <= budget_dollars and _record["average_single_family_bill_dollars"] <= tax_limit_dollars:
+
+    Goes in: two fields read by name from _records, plus budget_dollars and tax_limit_dollars.
+        Comes out: True or False
+
+    qualifying_towns.append(_record)
+
+    Goes in: the current _record
+    Comes out: nothing - ut just adds that record to qualifying_towns when the comdition was True
+
+    qualifying_towns.sort(key=lambda r: r["average_single_family_bill_dollars"])
+
+    Goes in: the list qualifying_towns
+    Comes Out: nothing, this just reorders the list in place, cheapest bill first
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Line I had to ask the agent about: qualifying_towns.sort(key=lambda r: r["average_single_family_bill_dollars"])
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    lambda is a short throw away function that is used here to sort which fields to compare
+    """)
+    return
+
+
+@app.cell
+def _(
+    budget_dollars,
+    county,
+    fiscal_year,
+    qualifying_towns,
+    tax_limit_dollars,
+):
+    print(f"{'Town':<15}{'Value ($)':>12}{'Rate':>8}{'Bill ($)':>10}")
+    for _record in qualifying_towns:
+        print(f"{_record['name']:<15}{_record['average_single_family_value_dollars']:>12,}{_record['residential_rate_per_thousand']:>8}{_record['average_single_family_bill_dollars']:>10,}")
+
+    if len(qualifying_towns) > 0:
+        cheapest = qualifying_towns[0]
+        print(f"\nIn {county} county for fiscal year {fiscal_year}, {len(qualifying_towns)} towns have an average home value under ${budget_dollars:,} and an average yearly tax bill under ${tax_limit_dollars:,}, with {cheapest['name']} being the cheapest at ${cheapest['average_single_family_bill_dollars']:,} per year.")
+    else:
+        print(f"\nNo towns in {county} county meet a budget of ${budget_dollars:,} and a tax limit of ${tax_limit_dollars:,} for fiscal year {fiscal_year}.")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    print(f"{'Town':<15}{'Value ($)':>12}{'Rate':>8}{'Bill ($)':>10}")
+    for _record in qualifying_towns:
+
+    Goes in: an f-string with four text labels ('Town', 'Value', '$', 'Rate','Bill','$'each told how wide to print and way to line up.
+    Comes Out: nothing is returned, print just displays one line of text (the column headings)
+    """)
+    return
+
+
+app._unparsable_cell(
+    r"""
+    I asked my agent about the <15 and >12 parts, these are formating instructions inside an f-string. <15 means "line up to the left in a space 15 characters wide," and >12 means "line up to the right in a space 12 characters wide "
+    """,
+    name="_"
+)
+
+
+app._unparsable_cell(
+    r"""
+    8. cont. Changing the tool 
+    """,
+    name="_"
+)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    I am going to lower the budget maximum and tax maximum by 10%, I am expecting the results to decrease proportionally.
+    """)
     return
 
 
