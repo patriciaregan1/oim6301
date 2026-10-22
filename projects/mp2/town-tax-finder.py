@@ -421,5 +421,25 @@ def _(mo):
     return
 
 
+app._unparsable_cell(
+    r"""
+    I found that 10%  decrease was not a large enough difference to see any results, so then changed the maximums by increasing by 10% . I then found that 30 towns have a average home value under 840,000, which shows that a 10% increase gives homebuyers 11 more towns to choose from. 
+    """,
+    name="_"
+)
+
+
+@app.cell
+def _():
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    """)
+    return
+
+
 if __name__ == "__main__":
     app.run()
