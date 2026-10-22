@@ -19,7 +19,7 @@ def _():
     import altair as alt
     import polars as pl
 
-    return csv, pl
+    return alt, csv, pl
 
 
 @app.cell(hide_code=True)
@@ -93,6 +93,11 @@ def _(mo):
     mo.md(r"""
     Inputs
     """)
+    return
+
+
+@app.cell
+def _():
     return
 
 
@@ -237,14 +242,9 @@ def _(ma_taxes_csv, pl):
     return
 
 
-@app.cell
-def _(
-    budget_dollars,
-    county,
-    fiscal_year,
-    qualifying_towns,
-    tax_limit_dollars,
-):
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     print(f"{'Town':<15}{'Value ($)':>12}{'Rate':>8}{'Bill ($)':>10}")
     for _record in qualifying_towns:
         print(f"{_record['name']:<15}{_record['average_single_family_value_dollars']:>12,}{_record['residential_rate_per_thousand']:>8}{_record['average_single_family_bill_dollars']:>10,}")
@@ -254,6 +254,7 @@ def _(
         print(f"\nIn {county} county for fiscal year {fiscal_year}, {len(qualifying_towns)} towns have an average home value under ${budget_dollars:,} and an average yearly tax bill under ${tax_limit_dollars:,}, with {cheapest['name']} being the cheapest at ${cheapest['average_single_family_bill_dollars']:,} per year.")
     else:
         print(f"\nNo towns in {county} county meet a budget of ${budget_dollars:,} and a tax limit of ${tax_limit_dollars:,} for fiscal year {fiscal_year}.")
+    """)
     return
 
 
@@ -265,13 +266,6 @@ def _(mo):
     return
 
 
-@app.cell
-def _(county, get_towns):
-    middlesex_towns, middlesex_total = get_towns(county)
-    len(middlesex_towns) == middlesex_total
-    return (middlesex_towns,)
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -280,12 +274,12 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    7. Working With the Agent
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    7. Work With the Agent
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -296,12 +290,12 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    8. Reading it Back 
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    8. -Read it Back
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -365,26 +359,6 @@ def _(mo):
     return
 
 
-@app.cell
-def _(
-    budget_dollars,
-    county,
-    fiscal_year,
-    qualifying_towns,
-    tax_limit_dollars,
-):
-    print(f"{'Town':<15}{'Value ($)':>12}{'Rate':>8}{'Bill ($)':>10}")
-    for _record in qualifying_towns:
-        print(f"{_record['name']:<15}{_record['average_single_family_value_dollars']:>12,}{_record['residential_rate_per_thousand']:>8}{_record['average_single_family_bill_dollars']:>10,}")
-
-    if len(qualifying_towns) > 0:
-        cheapest = qualifying_towns[0]
-        print(f"\nIn {county} county for fiscal year {fiscal_year}, {len(qualifying_towns)} towns have an average home value under ${budget_dollars:,} and an average yearly tax bill under ${tax_limit_dollars:,}, with {cheapest['name']} being the cheapest at ${cheapest['average_single_family_bill_dollars']:,} per year.")
-    else:
-        print(f"\nNo towns in {county} county meet a budget of ${budget_dollars:,} and a tax limit of ${tax_limit_dollars:,} for fiscal year {fiscal_year}.")
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -397,20 +371,20 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     I asked my agent about the <15 and >12 parts, these are formating instructions inside an f-string. <15 means "line up to the left in a space 15 characters wide," and >12 means "line up to the right in a space 12 characters wide "
-    """,
-    name="_"
-)
+    """)
+    return
 
 
-app._unparsable_cell(
-    r"""
-    8. cont. Changing the tool 
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    8. Changing what the tool does
+    """)
+    return
 
 
 @app.cell(hide_code=True)
@@ -421,12 +395,20 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    I found that 10%  decrease was not a large enough difference to see any results, so then changed the maximums by increasing by 10% . I then found that 30 towns have a average home value under 840,000, which shows that a 10% increase gives homebuyers 11 more towns to choose from. 
-    """,
-    name="_"
-)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    I found that 10%  decrease was not a large enough difference to see any results, so then changed the maximums by increasing by 10% . I then found that 30 towns have a average home value under 840,000, which shows that a 10% increase gives homebuyers 11 more towns to choose from.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Where is it: my input cells have already ben converted to allow the couple to change them there selves, all I did was increase $700,000 by $140,000 and $8,000 by $800 to see the difference.
+    """)
+    return
 
 
 @app.cell
@@ -438,6 +420,72 @@ def _():
 def _(mo):
     mo.md(r"""
     """)
+    return
+
+
+@app.cell
+def _(county, get_towns):
+    middlesex_towns, middlesex_total = get_towns(county)
+    len(middlesex_towns) == middlesex_total
+    return (middlesex_towns,)
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    Going Further: 10-Year Bill History for the Three Cheapest Towns
+    """)
+    return
+
+
+@app.cell
+def _(middlesex_towns, qualifying_towns):
+    cheapest_three = qualifying_towns[0:3]
+
+    cheapest_three_codes = []
+
+    for _cheap_town in cheapest_three:
+        for _town in middlesex_towns:
+            if _town["name"] == _cheap_town["name"]:
+                cheapest_three_codes.append({"name": _town["name"], "dor_code": _town["dor_code"]})
+
+    cheapest_three_codes
+    return (cheapest_three_codes,)
+
+
+@app.cell
+def _(cheapest_three_codes, get_town_history, pl):
+    ten_year_rows = []
+
+    for _code_record in cheapest_three_codes:
+        _history = get_town_history(_code_record["dor_code"])
+        _last_ten_years = _history[-10:]
+        for _year in _last_ten_years:
+            ten_year_rows.append({
+                "name": _code_record["name"],
+                "fiscal_year": _year["fiscal_year"],
+                "average_single_family_bill_dollars": _year["average_single_family_bill_dollars"],
+            })
+
+    ten_year_df = pl.DataFrame(ten_year_rows)
+    ten_year_df
+    return (ten_year_df,)
+
+
+@app.cell
+def _(alt, ten_year_df):
+    bill_history_chart = alt.Chart(ten_year_df).mark_line(point=True).encode(
+        x=alt.X("fiscal_year:O", title="Fiscal year"),
+        y=alt.Y("average_single_family_bill_dollars:Q", title="Average bill ($)"),
+        color=alt.Color("name:N", title="Town"),
+        tooltip=["name", "fiscal_year", "average_single_family_bill_dollars"],
+    ).properties(
+        title="10-Year Average Tax Bill: Three Cheapest Qualifying Towns",
+        width=500,
+        height=300,
+    )
+
+    bill_history_chart
     return
 
 
