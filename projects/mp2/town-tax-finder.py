@@ -489,5 +489,18 @@ def _(alt, ten_year_df):
     return
 
 
+@app.cell
+def _():
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Time Spent: about 8 hours in total
+    """)
+    return
+
+
 if __name__ == "__main__":
     app.run()
