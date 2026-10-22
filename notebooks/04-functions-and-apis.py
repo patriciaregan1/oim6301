@@ -451,6 +451,18 @@ def _(mo):
     return
 
 
+@app.cell
+def _(requests):
+    top_income_reply = requests.get(
+        "https://oim.zhili.dev/ma/towns",
+        params={"county": "Norfolk", "sort": "income", "order": "desc", "per_page": 5},
+        timeout=10,
+    )
+    top_income_towns = top_income_reply.json()["items"]
+    [town["name"] for town in top_income_towns]
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -464,6 +476,41 @@ def _(mo):
 
     **Going further.** Write `town_history(name)`, which takes a town's name, makes both requests, and returns the history.
     """)
+    return
+
+
+@app.cell
+def _(requests):
+    wellesley_town_reply = requests.get(
+        "https://oim.zhili.dev/ma/towns",
+        params={"name": "Wellesley"},
+        timeout=10,
+    )
+    wellesley_town = wellesley_town_reply.json()["items"][0]
+    wellesley_dor_code = wellesley_town["dor_code"]
+    wellesley_dor_code
+    return (wellesley_dor_code,)
+
+
+@app.cell
+def _(requests, wellesley_dor_code):
+    wellesley_history_reply = requests.get(
+        f"https://oim.zhili.dev/ma/towns/{wellesley_dor_code}/history",
+        params={"from_year": 2026, "to_year": 2026},
+        timeout=10,
+    )
+    wellesley_history = wellesley_history_reply.json()
+    wellesley_history
+    return (wellesley_history,)
+
+
+@app.cell
+def _(wellesley_history):
+    wellesley_year = wellesley_history["years"][0]
+    wellesley_value = wellesley_year["average_single_family_value_dollars"]
+    wellesley_rate = wellesley_year["residential_rate_per_thousand"]
+    wellesley_check = round(wellesley_value * wellesley_rate / 1000, 2)
+    wellesley_check
     return
 
 
@@ -550,6 +597,24 @@ def _(mo):
 
     **Going further.** Which town has the highest average single-family tax bill in the state, and which the lowest?
     """)
+    return
+
+
+@app.cell
+def _(get_page):
+    def get_all_towns():
+        '''
+        Read every page of /ma/towns and return one list of every town.
+        '''
+        first_page = get_page(1)
+        pages = first_page["pagination"]["pages"]
+        all_towns = first_page["items"]
+        for page_number in range(2, pages + 1):
+            next_page = get_page(page_number)
+            all_towns = all_towns + next_page["items"]
+        return all_towns
+    all_towns = get_all_towns()
+    len(all_towns), all_towns[0]["name"], all_towns[-1]["name"]
     return
 
 
