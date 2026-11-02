@@ -258,6 +258,26 @@ def _(mo):
     return
 
 
+@app.cell
+def _(
+    budget_dollars,
+    county,
+    fiscal_year,
+    qualifying_towns,
+    tax_limit_dollars,
+):
+    print(f"{'Town':<15}{'Value ($)':>12}{'Rate':>8}{'Bill ($)':>10}")
+    for _record in qualifying_towns:
+        print(f"{_record['name']:<15}{_record['average_single_family_value_dollars']:>12,}{_record['residential_rate_per_thousand']:>8}{_record['average_single_family_bill_dollars']:>10,}")
+
+    if len(qualifying_towns) > 0:
+        cheapest = qualifying_towns[0]
+        print(f"\nIn {county} county for fiscal year {fiscal_year}, {len(qualifying_towns)} towns have an average home value under ${budget_dollars:,} and an average yearly tax bill under ${tax_limit_dollars:,}, with {cheapest['name']} being the cheapest at ${cheapest['average_single_family_bill_dollars']:,} per year.")
+    else:
+        print(f"\nNo towns in {county} county meet a budget of ${budget_dollars:,} and a tax limit of ${tax_limit_dollars:,} for fiscal year {fiscal_year}.")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -272,6 +292,15 @@ def _(mo):
     This check makes sure the number of town records I actually collected matches the total the API says exists, this confirms all towns are accounted for and none were lost due to pagination
     """)
     return
+
+
+@app.cell
+def _(county, get_towns):
+    middlesex_towns, middlesex_total = get_towns(county)
+    print("towns collected:", len(middlesex_towns))
+    print("total reported by API:", middlesex_total)
+    len(middlesex_towns) == middlesex_total
+    return (middlesex_towns,)
 
 
 @app.cell(hide_code=True)
@@ -390,7 +419,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    I am going to lower the budget maximum and tax maximum by 10%, I am expecting the results to decrease proportionally.
+    I wrote a new function, filter_qualifying_towns(town_figures, budget_limit, tax_limit), that takes in the town figures, a budget limit, and a tax limit, and returns the list of qualifying towns sorted cheapest first. I am going to call it twice: once with the budget and tax limits each lowered by 10%, and once with them each raised by 10%. I expect the lowered limits to produce fewer qualifying towns than the original 12, and the raised limits to produce more.
     """)
     return
 
@@ -398,7 +427,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    I found that 10%  decrease was not a large enough difference to see any results, so then changed the maximums by increasing by 10% . I then found that 30 towns have a average home value under 840,000, which shows that a 10% increase gives homebuyers 11 more towns to choose from.
+    My prediction held in both directions. The original 12 qualifying towns dropped to 10 when the budget and tax limits were each lowered by 10%, and rose to 19 when the budget and tax limits were each raised by 10%. So a 10% decrease in limits removed 2 towns from the list, and a 10% increase in limits added 7 towns to the list.
     """)
     return
 
@@ -406,14 +435,19 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Where is it: my input cells have already ben converted to allow the couple to change them there selves, all I did was increase $700,000 by $140,000 and $8,000 by $800 to see the difference.
+    Where is it: the new function, filter_qualifying_towns, is defined in the cell right after this section's heading. The cell below it calls that function twice, once with budget_dollars and tax_limit_dollars each multiplied by 0.9 (10% lower), and once with them each multiplied by 1.1 (10% higher), and prints the length of each resulting list next to the original qualifying_towns count.
     """)
     return
 
 
-@app.cell
-def _():
-    return
+@app.function
+def filter_qualifying_towns(town_figures, budget_limit, tax_limit):
+    qualifying = []
+    for record in town_figures:
+        if record["average_single_family_value_dollars"] <= budget_limit and record["average_single_family_bill_dollars"] <= tax_limit:
+            qualifying.append(record)
+    qualifying.sort(key=lambda r: r["average_single_family_bill_dollars"])
+    return qualifying
 
 
 @app.cell(hide_code=True)
@@ -425,10 +459,19 @@ def _(mo):
 
 
 @app.cell
-def _(county, get_towns):
-    middlesex_towns, middlesex_total = get_towns(county)
-    len(middlesex_towns) == middlesex_total
-    return (middlesex_towns,)
+def _(budget_dollars, qualifying_towns, tax_limit_dollars, town_2026_figures):
+    decreased_budget = budget_dollars * 0.9
+    decreased_tax = tax_limit_dollars * 0.9
+    increased_budget = budget_dollars * 1.1
+    increased_tax = tax_limit_dollars * 1.1
+
+    towns_after_decrease = filter_qualifying_towns(town_2026_figures, decreased_budget, decreased_tax)
+    towns_after_increase = filter_qualifying_towns(town_2026_figures, increased_budget, increased_tax)
+
+    print("original qualifying towns:", len(qualifying_towns))
+    print("towns after 10% decrease in limits:", len(towns_after_decrease))
+    print("towns after 10% increase in limits:", len(towns_after_increase))
+    return
 
 
 @app.cell
