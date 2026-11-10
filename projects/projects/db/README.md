@@ -81,3 +81,13 @@ erDiagram
     ORDER_LINES ||--o{ LINE_OPTIONS : carries
     OPTIONS ||--o{ LINE_OPTIONS : "applied as"
 ```
+
+C. What One Row Means
+
+One row of members is one loyalty member, with their name, contact details, join date and points balance.
+One row of products is one item on the menu, with its category, price, cost and whether it is available today.
+One row of options is one add-on a drink can carry, such as oat milk, with its price and cost.
+One row of orders is one order placed at one moment through one channel, by one member or by no member.
+One row of order_lines is one product bought on one order, in a given quantity at the price charged that day.
+One row of line_options is one option added to one order line, at the price charged that day for each unit.
+One row of payments is one payment toward one order, made by one method for one dollar amount.
