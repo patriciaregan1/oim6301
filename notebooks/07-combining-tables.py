@@ -146,6 +146,28 @@ def _(ask, northwind_database):
     return
 
 
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT
+            CASE WHEN has_discount THEN 'Discounted' ELSE 'No discount' END AS discount_group,
+            COUNT(*) AS orders,
+            ROUND(SUM(order_revenue), 2) AS total_revenue,
+            ROUND(SUM(order_revenue) / COUNT(*), 2) AS avg_revenue_per_order
+        FROM (
+            SELECT
+                OrderID,
+                MAX(Discount) > 0 AS has_discount,
+                SUM(UnitPrice * Quantity * (1 - Discount)) AS order_revenue
+            FROM order_details
+            GROUP BY OrderID
+        )
+        GROUP BY has_discount
+        ORDER BY has_discount
+    """)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
