@@ -90,4 +90,49 @@ One row of options is one add-on a drink can carry, such as oat milk, with its p
 One row of orders is one order placed at one moment through one channel, by one member or by no member.
 One row of order_lines is one product bought on one order, in a given quantity at the price charged that day.
 One row of line_options is one option added to one order line, at the price charged that day for each unit.
-One row of payments is one payment toward one order, made by one method for one dollar amount.
+One row of payments is one payment toward one order, made by one method for one dollar amount. 
+
+1. Keys.
+The business already had two candidate keys, the mobile number for members and the product name for the menu. I used neither as a primary key. I gave every table a surrogate _id key instead. A member can change their mobile number, and a primary key that changes would mean updating every order that points to it. Product names can also be reworded or reused, for example “Latte” becoming “Oat Latte”. The mobile number stays UNIQUE, so two members can’t share one.
+
+The only natural composite key I kept is on line_options, which uses (line_id, option_id). That key is what stops the same option appearing twice on one line.
+
+2. Optional relationships.
+
+The one that matters is members to orders. The scenario says “customers who are not members buy too, and their orders name no customer”. So orders.member_id is nullable, and a member can also have zero orders.
+products to order_lines is zero-or-many, since a new menu item may not have sold yet.
+options to line_options is zero-or-many, since an option may never have been used.
+order_lines to line_options is zero-or-many, since “a line can carry several options” doesn’t force it to carry any.
+Every other relationship is mandatory. An order has “one line or more”, and each line belongs to exactly one order and one product.
+Email being optional is a nullable column, not an optional relationship.
+
+3. Rules the tables cannot hold.
+
+The main one is “an order’s payments add up to the order’s total”. It compares sums across three tables, which a CHECK can’t do.
+A related one is “an order has one line or more”. A foreign key can stop a line pointing at a missing order, but it can’t force an order to have a line.
+I’ll check both with queries that should return no rows:
+sql
+SELECT o.order_id,
+       SUM(l.quantity * (l.unit_price + COALESCE(x.opt, 0))) AS total,
+       COALESCE(p.paid, 0) AS paid
+FROM orders o
+LEFT JOIN order_lines l ON l.order_id = o.order_id
+LEFT JOIN (SELECT line_id, SUM(price_charged) AS opt
+           FROM line_options GROUP BY line_id) x ON x.line_id = l.line_id
+LEFT JOIN (SELECT order_id, SUM(amount) AS paid
+           FROM payments GROUP BY order_id) p ON p.order_id = o.order_id
+GROUP BY o.order_id, p.paid
+HAVING l.line_id IS NULL OR total <> COALESCE(p.paid, 0);
+
+If your SQL dialect rejects l.line_id in the HAVING clause, use COUNT(l.line_id) = 0 instead.
+
+The other rules do fit in the tables:
+Quantity above zero and amount above zero are CHECKs.
+Price at least cost is a CHECK on products.
+The four payment methods are a CHECK.
+One option per line is the composite key.
+
+4. One thing the agent proposed that was not taken.
+
+My first draft added unit_cost on order_lines and cost_charged on line_options. The idea was to freeze each cost at the time of sale, so margin on “which add-ons earn their keep” wouldn’t shift when a supplier price changed. I dropped both columns. The scenario only asks for the price charged that day, and a cost snapshot wasn’t asked for. Margin can still be estimated from the current cost columns on products and options. If the café later wants exact historical margin, those two columns are the first thing to add. 
+
