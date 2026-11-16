@@ -99,7 +99,7 @@ def _(duckdb, mo, pl):
                 payment_id INTEGER PRIMARY KEY,
                 order_id INTEGER NOT NULL REFERENCES orders(order_id),
                 method VARCHAR NOT NULL CHECK (method IN ('cash', 'card', 'app', 'points')),
-                amount DECIMAL(10,2) NOT NULL CHECK (amount >= 0)
+                amount DECIMAL(10,2) NOT NULL CHECK (amount > 0)
             )
         """)
 
