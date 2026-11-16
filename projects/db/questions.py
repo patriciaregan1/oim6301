@@ -186,7 +186,7 @@ def _(ask):
         ORDER BY o.order_id
     """)
     q4_result
-    return
+    return (q4_result,)
 
 
 @app.cell(hide_code=True)
@@ -257,7 +257,7 @@ def _(mo):
 
 
 @app.cell
-def _(ask, as_of, last_60_start):
+def _(as_of, ask, last_60_start):
     q7_result = ask(f"""
         SELECT p.product_id, p.name, p.is_available
         FROM products p
@@ -318,7 +318,7 @@ def _(mo):
 
 
 @app.cell
-def _(ask, last_30_start, as_of):
+def _(as_of, ask, last_30_start):
     q9_hourly = ask(f"""
         SELECT EXTRACT(HOUR FROM ordered_at)::INTEGER AS hour,
                COUNT(*) AS orders
@@ -329,7 +329,7 @@ def _(ask, last_30_start, as_of):
         ORDER BY hour
     """)
     q9_hourly
-    return
+    return (q9_hourly,)
 
 
 @app.cell
@@ -387,7 +387,7 @@ def _(q4_result):
 
 
 @app.cell
-def _(ask, as_of, last_30_start, q9_hourly):
+def _(as_of, ask, last_30_start, q9_hourly):
     q9_hour_bucket_total = int(q9_hourly.get_column("orders").sum())
     q9_direct_total = int(ask(f"""
         SELECT COUNT(*) AS order_count
@@ -466,9 +466,16 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     5. Time Spent
     -
-    About ___ hours outside class.
+    About 5-6 hours outside of class, combined for parts Part A& B
     """)
     return
 
