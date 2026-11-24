@@ -252,6 +252,16 @@ def _(mo):
     return
 
 
+@app.cell
+def _(ask, towns_database):
+    ask(towns_database, """
+        SELECT count(*)
+        FROM towns
+        LEFT JOIN counties ON towns.county = counties.county
+    """)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
