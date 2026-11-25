@@ -528,6 +528,49 @@ def _(mo):
     return
 
 
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT c.CategoryName, round(sum(d.UnitPrice * d.Quantity * (1 - d.Discount)), 2) AS total_revenue
+        FROM order_details AS d
+        JOIN orders AS o ON o.OrderID = d.OrderID
+        JOIN products AS p ON p.ProductID = d.ProductID
+        JOIN categories AS c ON c.CategoryID = p.CategoryID
+        WHERE o.ShipCountry = 'USA'
+        GROUP BY c.CategoryName
+        ORDER BY total_revenue DESC
+    """)
+    return
+
+
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT round(sum(d.UnitPrice * d.Quantity * (1 - d.Discount)), 2) AS usa_revenue
+        FROM order_details AS d
+        JOIN orders AS o ON o.OrderID = d.OrderID
+        WHERE o.ShipCountry = 'USA'
+    """)
+    return
+
+
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT
+            c.CategoryName,
+            extract(year FROM o.OrderDate) AS year,
+            round(sum(d.UnitPrice * d.Quantity * (1 - d.Discount)), 2) AS total_revenue
+        FROM order_details AS d
+        JOIN orders AS o ON o.OrderID = d.OrderID
+        JOIN products AS p ON p.ProductID = d.ProductID
+        JOIN categories AS c ON c.CategoryID = p.CategoryID
+        GROUP BY c.CategoryName, extract(year FROM o.OrderDate)
+        ORDER BY c.CategoryName, year
+    """)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
