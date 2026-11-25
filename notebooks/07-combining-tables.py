@@ -255,10 +255,11 @@ def _(mo):
 @app.cell
 def _(ask, towns_database):
     ask(towns_database, """
-        SELECT count(*)
-        FROM towns
-        LEFT JOIN counties ON towns.county = counties.county
-    """)
+            SELECT t.name, t.county, t.population, c.population AS county_population
+            FROM towns AS t
+            JOIN counties AS c ON t.county = c.name
+            ORDER BY t.population DESC
+        """)
     return
 
 
@@ -319,6 +320,55 @@ def _(mo):
     *Check yourself: four territories, Columbia, Bentonville, Dallas and Austin.*
 
     **Going further.** List the employees with the number of territories each covers, and check that the counts add up to the rows of `employee_territories`. Then find the same four territories with `WHERE NOT EXISTS (...)`.
+    """)
+    return
+
+
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT table_name, column_name, data_type
+        FROM information_schema.columns
+        WHERE table_name IN ('territories', 'employee_territories')
+        ORDER BY table_name, column_name
+    """)
+    return
+
+
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT t.TerritoryID, t.TerritoryDescription
+        FROM territories AS t
+        LEFT JOIN employee_territories AS e ON e.TerritoryID = t.TerritoryID
+        WHERE e.TerritoryID IS NULL
+        ORDER BY t.TerritoryDescription
+    """)
+    return
+
+
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT e.EmployeeID, count(t.TerritoryID) AS territories
+        FROM employees AS e
+        LEFT JOIN employee_territories AS t ON t.EmployeeID = e.EmployeeID
+        GROUP BY e.EmployeeID
+        ORDER BY e.EmployeeID
+    """)
+    return
+
+
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT t.TerritoryID, t.TerritoryDescription
+        FROM territories AS t
+        WHERE NOT EXISTS (
+            SELECT 1 FROM employee_territories AS e
+            WHERE e.TerritoryID = t.TerritoryID
+        )
+        ORDER BY t.TerritoryDescription
     """)
     return
 
@@ -424,6 +474,40 @@ def _(mo):
     return
 
 
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT ShipCountry, round(sum(Freight), 2) AS total_freight
+        FROM orders
+        GROUP BY ShipCountry
+        ORDER BY total_freight DESC
+    """)
+    return
+
+
+@app.cell
+def _(ask, northwind_database):
+    ask(northwind_database, """
+        SELECT o.OrderID, o.Freight, coalesce(n.lines, 0) AS lines
+        FROM orders AS o
+        LEFT JOIN (
+            SELECT OrderID, count(*) AS lines
+            FROM order_details
+            GROUP BY OrderID
+        ) AS n ON n.OrderID = o.OrderID
+        ORDER BY o.OrderID
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    **Going further.** This builds one row per order with its freight and its number of lines. First we count the lines for each `OrderID` in `order_details`, inside a subquery (a query written inside another query, in parentheses, given a name like a table). Then we `LEFT JOIN` those counts onto `orders`, so an order keeps its row even if it somehow had no lines. `coalesce(n.lines, 0)` replaces a missing count with 0.
+    """)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -489,7 +573,7 @@ def _(mo, os, pl):
             return pl.DataFrame(_cursor.fetchall(), schema=_columns, orient="row")
 
     ask_server("SELECT TOP 5 SalesOrderID, OrderDate, Freight FROM Sales.SalesOrderHeader ORDER BY SalesOrderID")
-    return
+    return (ask_server,)
 
 
 @app.cell(hide_code=True)
@@ -512,6 +596,77 @@ def _(mo):
     3. Find the customers in `Sales.Customer` who never placed an order, and the products in `Production.Product` that never sold. *Check yourself: 701 customers and 238 products.*
 
     **Going further.** Answer one question of your own about AdventureWorks that needs three tables, and check it against a total you can get from one of them.
+    """)
+    return
+
+
+@app.cell
+def _(ask_server):
+    ask_server("""
+        SELECT
+            (SELECT count(*) FROM Sales.SalesOrderHeader) AS headers,
+            (SELECT count(*) FROM Sales.SalesOrderDetail) AS details,
+            (SELECT count(*)
+             FROM Sales.SalesOrderHeader AS h
+             JOIN Sales.SalesOrderDetail AS d ON d.SalesOrderID = h.SalesOrderID) AS joined
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    The join has 121,317 rows, the same as `Sales.SalesOrderDetail`. Each row of `SalesOrderDetail` has exactly one `SalesOrderID`, and that `SalesOrderID` matches exactly one row of `SalesOrderHeader`. So the join pairs each detail row with its one header row: no detail row is dropped, and none is duplicated. The join has as many rows as the table where the key, `SalesOrderID`, repeats.
+    """)
+    return
+
+
+@app.cell
+def _(ask_server):
+    ask_server("""
+        SELECT
+            (SELECT round(sum(Freight), 2) FROM Sales.SalesOrderHeader) AS freight,
+            (SELECT round(sum(h.Freight), 2)
+             FROM Sales.SalesOrderHeader AS h
+             JOIN Sales.SalesOrderDetail AS d ON d.SalesOrderID = h.SalesOrderID) AS freight_after_the_join
+    """)
+    return
+
+
+@app.cell
+def _(ask_server):
+    ask_server("""
+        SELECT
+            (SELECT count(*)
+             FROM Sales.Customer AS c
+             LEFT JOIN Sales.SalesOrderHeader AS h ON h.CustomerID = c.CustomerID
+             WHERE h.SalesOrderID IS NULL) AS customers_never_ordered,
+            (SELECT count(*)
+             FROM Production.Product AS p
+             LEFT JOIN Sales.SalesOrderDetail AS d ON d.ProductID = p.ProductID
+             WHERE d.SalesOrderID IS NULL) AS products_never_sold
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    **Going further.** One question needing three tables: for each product category, what is the total `OrderQty` sold (from `Sales.SalesOrderDetail`, `Production.Product` and `Production.ProductCategory`)? We check the total against the sum of `OrderQty` in `Sales.SalesOrderDetail` alone.
+    """)
+    return
+
+
+@app.cell
+def _(ask_server):
+    ask_server("""
+        SELECT
+            (SELECT sum(OrderQty) FROM Sales.SalesOrderDetail) AS total_qty,
+            (SELECT sum(d.OrderQty)
+             FROM Sales.SalesOrderDetail AS d
+             JOIN Production.Product AS p ON p.ProductID = d.ProductID
+             JOIN Production.ProductSubcategory AS s ON s.ProductSubcategoryID = p.ProductSubcategoryID
+             JOIN Production.ProductCategory AS c ON c.ProductCategoryID = s.ProductCategoryID) AS total_qty_after_the_join
     """)
     return
 
